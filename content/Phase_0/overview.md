@@ -1,6 +1,7 @@
 ---
 draft: false
 title: Overview and Motivation
+weight: 6
 ---
 
 When thinking at welfare and government expenditure in health, we often focus on physical health and not much in mental health. Starting this project out main idea was to study the relationship between Mental Health Services and Homicides. Later, we moved to a broader view to study which are the factor that mostly impact criminality in a developed country. 
