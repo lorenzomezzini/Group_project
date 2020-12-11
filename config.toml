@@ -1,4 +1,4 @@
-baseURL = "https://example.com"
+baseURL = "https://group15-finalproject.netlify.app/"
 
 languageCode = "en-us"
 DefaultContentLanguage = "en"
