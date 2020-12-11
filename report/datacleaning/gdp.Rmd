@@ -1,0 +1,34 @@
+
+### Source and Descriptions
+
+The data-set on GDP can be found in the Bureau of Economic Analysis, of U.S. Department of Commerce, [website](https://apps.bea.gov/iTable/iTable.cfm?7001=1200&7002=1&7003=200&7004=sic&7005=1&7006=xx&7007=-1&7035=-1&7036=-1&7090=70&7093=levels&isuri=1&reqid=70&step=10).
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(GDP), list(scrollX='400px'), caption= "Raw Data - Dataset which gives us info on GDP, our variable of interest")
+```
+
+This has 483 observations for 27 columns, which are:
+<ul>
+  <li> <b>GeoFips</b> and <b>GeoName</b> which identify the state, or the whole US through a code and the name, respectively </li>
+  <li><b>LineCode</b> and <b>Description</b> which identify the kind of variable we are looking at, i.e. Current-dollar GDP (millions of current dollars), Real GDP (millions of chained 2012 dollars), etc... They are of 8 different kind, but we will focus on Current-dollar GDP as you will see  </li>
+  <li> <b>1997 ... 2019</b> one column for each year observed </li>
+</ul>
+
+### Wrangling/Cleaning
+
+In order to clean the dataset we filter for one values of <b>Description</b> only, since it's the one of interest for us: Current-dollar GDP (millions of current dollars). We delete the column which are not relevat, remaining with renamed <b>GeoName</b>, which is now <b>State</b>, and <b>1997 ... 2019</b>. We use "pivot_longer" to create two variables <b>year</b> and <b>Current_dollar_GDP_millions</b> increasing the length of the data-set. 
+Of course, we also filter for years in the frame 2004-2013.
+
+The resulting dataset is "GDP_Cleaned":
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(GDP_Cleaned), list(scrollX='400px'), caption= "Cleaned Data - Current-dollar GDP (millions of current dollars)")
+```
+
+Let's look at how many NAs are present:
+
+```{r}
+DT::datatable(as.data.frame(colSums(is.na(GDP_Cleaned))), list(scrollX='400px'), colnames = "Missing Values")
+```
+
+No missing values are present in "GDP_Cleaned"

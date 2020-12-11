@@ -1,0 +1,12 @@
+---
+title: "What Are The Factors Influencing Criminality? Evidence from US"
+author: "Gasparri, Eleonora and Mezzini, Lorenzo"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  prettydoc::html_pretty:
+    theme: leonids
+    highlight: github
+---
+
+```{r child = c('intro.Rmd', 'data.Rmd', 'eda.Rmd', 'analysis.Rmd', 'concl.Rmd')}
+```

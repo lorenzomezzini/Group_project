@@ -1,0 +1,59 @@
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+source(here::here("scripts/setup.R"))
+source(here::here("scripts/Data_cleaning_script.R"))
+```
+
+
+In this part we present the data we use to analyse and answer our research questions.
+We start by importing and cleaning them. 
+We use a total of 17 files to form our final data-set, we present them below separately, following the themes. 
+Notice that we clean each data-set such that they all appear "standardized" (for example we select years from 2004 to 2013, since only in this time-framework we have all data available). This is done to facilitate the join process among all data-set.
+
+## Crime Data
+
+```{r child = 'datacleaning/crimedata.Rmd'}
+```
+
+
+## Mental Health Expenditure
+
+```{r child = 'datacleaning/mh_expenditure.Rmd'}
+```
+
+## US demographic
+
+```{r child = 'datacleaning/demographics.Rmd'}
+```
+
+## Education
+
+```{r child = 'datacleaning/education.Rmd'}
+```
+
+
+## GDP
+
+```{r child = 'datacleaning/gdp.Rmd'}
+```
+
+## Final Dataset
+Now that we have each data-set cleaned and wrangled in a "standardized" way we can join them by State and year.
+
+Although, simply joining them produces NAs:
+
+```{r}
+kable(as.data.frame(colSums(is.na(demographics%>%
+  full_join(mh_exp, by=c("State","year"))%>%
+  full_join(edu, by=c("State","year"))%>%
+  full_join(GDP_Cleaned, by=c("State","year"))%>%
+  full_join(estimated_crimes, by=c("State","year"))))), 'simple', col.names = "Missing Values")
+```
+
+By looking at the data we understand that this happens because some data-set considered also Divisions and this makes appear among the States also New England, Mideast, Great Lakes, Plains, Southeast, Southwest, Rocky Mountain and Far West.We filter them out, as well as Puerto Rico. Indeed, the latter presents many missing values too. 
+
+The resulting dataset is called "project":
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(project), list(scrollX='400px'),  caption="Final Dataset")
+```

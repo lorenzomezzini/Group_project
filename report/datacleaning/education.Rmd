@@ -1,0 +1,52 @@
+### Source and Descriptions
+
+For education we decided to look up for a proxy: Bachelor's degree incidence in the population. We found two data-sets, one for the [percentage of people between 25-44 years old with a Bachelor's Degree](https://ncses.nsf.gov/indicators/states/indicator/bachelors-degree-holders-per-25-44-year-olds/table), for years 2005-2018, and one for the [number of bachelor's conferred in the age range 18-24 per 1000 individuals](https://ncses.nsf.gov/indicators/states/indicator/bachelors-degrees-per-1000-18-24-year-olds/table),  for years 2000-2018. 
+
+The former is:
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(edu_percholder_25_44), list(scrollX='400px'), caption= "Raw data - %25-44 years old people with a Bachelor's Degree")
+```
+
+This one contains 53 observations for 15 variables, which are
+
+<ul>
+  <li> <b>State</b> which identifies the state, or the whole US </li>
+  <li> <b>2005 ... 2018</b> one column for each year observed </li>
+</ul>
+
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(edu_per1000_18_24), list(scrollX='400px'),  caption= "Raw data - Per 1000 18-24 years old people conferring a Bachelor's Degree")
+```
+
+This one contains 53 observations for 20 variables, which are
+
+<ul>
+  <li> <b>State</b> which identifies the state, or the whole US </li>
+  <li> <b>2000 ... 2018</b> one column for each year observed </li>
+</ul>
+
+
+### Wrangling/Cleaning
+
+Both data-sets are cleaned separately and then put together. The main task in both is to 
+create a new variable <b>year</b> and another, respectively <b>perc_bscholder_25_44</b> and <b>perc_bscconferred_18_24</b>, therefore resulting in longer data-sets. 
+
+Notice, that the datas we had in the second data-set referred to 1000 people and was not in percentage
+terms as instead is <b>perc_bscholder_25_44</b>, therefore to obtain <b>perc_bscconferred_18_24</b> we have to divide by 1000 and multiply by 100 the data.
+
+Another thing which is worth mentioning is the fact that in the data-set describing %25-44 years old people with a Bachelor's Degree, we miss observations for 2004. To adjust for it we, first, create these observations as NAs, then fill them with the value from 2005. In our opinion this shouldn't alter our analysis, because the difference from year to year is relatively small.
+
+Then, we join the two cleaned data-sets in "edu":
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(edu), list(scrollX='400px'), caption= "Cleaned data - Proxies for Education level")
+```
+
+Again, we can look at how many NAs are present:
+```{r}
+DT::datatable(as.data.frame(colSums(is.na(edu))), list(scrollX='400px'), colnames = "Missing Values")
+```
+
+From above, we can see that we have no missing values for education, alhtough remember that the ones we had in "edu_percholder_25_44" have been filled with 2005's values.

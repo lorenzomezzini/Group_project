@@ -1,0 +1,126 @@
+
+### Sources and Description
+
+We used the 3 dataset in the [United States Census Bureau's website](https://www.census.gov/).  
+
+The first one is about race composition from 2000 to 2010
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(st_est00int_race), caption = 'Raw data - Demographics, Race, 2000-2010', options = list( scrollX='400px'))
+```
+
+This one contains 364 observations for 18 variables, which are
+
+<ul>
+  <li> <b>REGION</b>,<b>DIVISION</b>, <b>STATE</b>, <b>NAME</b> which identifies the region, division, state code and name of the state. </li>
+  <li> <b>RACE</b> is the race, it goes from 0 to 6, with 0 being the total and 1-6 identifying ethinicities as White, Black/African-American and so on </li>
+  <li> <b>POPBASE2000</b> and <b>POPESTIMATEyear</b> for each year, which are the estimated population in a State in a given year, for the respective race cathegory</li>
+</ul>
+
+The second one is about age and sex composition from 2000 to 2010
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(st_est00int_agesex), caption = 'Raw data - Demographics, Age & Sex, 2000-2010', options = list(scrollX='400px'))
+```
+This one contains 13572 observations for 19 variables, which are
+
+<ul>
+  <li> <b>REGION</b>,<b>DIVISION</b>, <b>STATE</b>, <b>NAME</b> which identifies the region, division, state code and name of the state. </li>
+  <li> <b>SEX</b> is the sex, it can be either 0 (total), 1 (male) or 2 (female) </li>
+  <li> <b>AGE</b> is the age, it goes from 0 to 85 years old, then there's also 999 which is the total population </li>
+  <li> <b>POPBASE2000</b> and <b>POPESTIMATEyear</b> for each year, which are the estimated population in a State in a given year, for the respective sex and age cathegory</li>
+</ul>
+
+The third one is about race, age and sex composition from 2010 to 2019
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(st_est00int_agesex), caption = 'Raw data - Demographics, Race, Age & Sex, 2010-2019', options = list(scrollX='400px'))
+```
+This one contains 236844 observations for 21 variables, which are
+
+<ul>
+  <li><b>SUMLEV</b> is the identification of the summary levels used by the census, it is also called "area type"</li>
+  <li> <b>REGION</b>,<b>DIVISION</b>, <b>STATE</b>, <b>NAME</b> which identifies the region, division, state code and name of the state. </li>
+  <li> <b>RACE</b> is the race, it goes from 1 to 6, 1-6 identifying ethinicities as White, Black/African-American and so on </li>
+  <li> <b>ORIGIN</b> is the origin, it can be 0 (total), 1 (Not Hispanic) or 2(Hispanic), although this sata is absent between 2000 and 2009 so we will omit it </li>
+  <li> <b>SEX</b> is the sex, it can be either 0 (total), 1 (male) or 2 (female) </li>
+  <li> <b>AGE</b> is the age, it goes from 0 to 84 years old, then we have 85 which comprises 85+ years old </li>
+  <li> <b>POPBASE2010</b> and <b>POPESTIMATEyear</b> for each year, which are the estimated population in a State in a given year, for the respective race, sex and age cathegory</li>
+</ul>
+
+
+### Wrangling/cleaning
+
+The cleaning is done for each data-set separately. Later we proceed to join them.
+ In all data-set we trasform REGION into a factor and we rename the levels such that total US replaces 0, North-East (NE) replaces 1, Mid-West (MW) replaces 2, South (S) replaces 3, and West (W) replaces 4. 
+
+Also RACE and SEX will become factors  with respective levels labels:(White=1, BlackAfricanAmerican=2, AmericanIndianAlaska=3, Asian=4, HawaiianPacificIslanders=5, Racegreaterthan1=6 and Total= for the dataset in years 2000-2010) and (Total=0, Male=1, Female=2).
+
+Names of variables are also changed slightly to have them in line with other data-sets and through pivot_longer and pivot_wider we adjust the structure of the table in a standardized way. 
+
+Moreover, for AGE we created some sub-groups instead of having the complete range 0-85 years old. 
+The age groups we create are 0-17, 18-24, 25-44, 45-64, 65-84 and 85+. We still don't know whether age composition has an impact on criminality, but we consider important to have the subgroups 18-24 and 25-44, since in education, as we will see, these two age groups are considered. 
+
+Also race groups are different in the cleaned dataset: White, BlackAfricanAmerican, Asian and Other_race. The latter comprises all the other cathegories.
+We also filter for years of interest (2004-2013).
+
+For years 2004-2010 the dataset about race is:
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(dem_2004_2010_race), list(scrollX='400px'))
+```
+
+For years 2004-2010 the dataset about sex and age is:
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(dem_2004_2010_agesex), list(scrollX='400px'))
+```
+
+Finally, for years 2004-2010 the final dataset is:
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(dem_2004_2010), list(scrollX='400px'))
+```
+
+For years 2011-2013 we created three different dataset. One for age:
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(dem_2011_2013_age), list(scrollX='400px'))
+```
+
+One for race:
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(dem_2011_2013_race), list(scrollX='400px'))
+```
+
+And one for sex
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(dem_2011_2013_sex), list(scrollX='400px'))
+```
+
+As you can notice, in 2011-2013 we miss the observation for United States, which instead is present between 2004-2010. Therefore, we created a dataset for it by taking the sum across states, since US's values would be the total:
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(dem_us_2011_2013), list(scrollX='400px'))
+```
+
+We put everything together for years 2011-2013 to obtain:
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(dem_2011_2013), list(scrollX='400px'))
+```
+
+Finally, we join the two data-sets on demographics for the two time-ranges and obtain the final "demographics" dataset:
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(head(demographics), list(scrollX='400px'))
+```
+
+Again, We can look at how many NAs are present:
+
+```{r}
+DT::datatable(as.data.frame(colSums(is.na(demographics))), list(scrollX='400px'), colnames = "Missing Values")
+```
+
+No missing value is present. Although, notice that in the cleaning process we have to fill some Region's values which otherwise would be missing. But, knowing the data-set and the State, it is straightforward.

@@ -1,0 +1,288 @@
+# Exploratory data analysis
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+source(here::here("scripts/setup.R"))
+source(here::here("scripts/Data_cleaning_script.R"))
+source(here::here("scripts/EDA_script.R"))
+```
+
+
+## Data Overview
+
+In this section we are going to do an explanatory data analysis by using the cleaned data described 
+in the data part. Throughout the section, we will still need some transformation of the data to
+facilitate the visualization and to understand everything in a deeper way.
+
+To present the crimes and the race in a nicer way, we decide to mutate the former in term of "per 1000 inhabitants" and the latter in percentage terms. This makes sense also because different countries have different dimensions and population size. Therefore, maintaining absolute magnitudes would probably give us a wrong perception and result. We don't change the variables' names, though.
+
+As you may have seen in the section on data, we end up having many features. Although some of them might be
+irrelevant or redundant. To see that we use a straightforward correlation command; this can be already a step towards the selection of most important variables that we may need for our analysis later.
+
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+M <- project_1 %>%
+  select(-c("State","Region","state_abbr", "year"))
+
+M <- cor(M, use = "complete.obs")
+
+
+filetag <- "corrplot_result.png"
+
+png(filetag, height = 1000, width = 1000)
+ corrplot(M, type="upper", order="hclust",
+        col=brewer.pal(n=8, name="RdYlBu"), tl.cex = 2)
+dev.off()
+knitr::include_graphics(here::here("report/corrplot_result.png"))
+```
+
+The main findings are:
+
+<ul>
+    <li>All variables describing the population, such as population, Female and Male, as well as age, are perfectly (or at least highly) correlated. For this reason, we can select population and ignore the amount of population which is female or male. Also because these values are always around 50% of population in each state, it wouldn't be too informative. Notice that, White and Black African-American seem negatively correlated, as well as Age_0_17 and Age_over85. These are only two examples, but the motivation is straightforward, i.e.: if the population is very young, it can't be old at the same time. </li>
+    <li> White and crimes have a negative corellation, except for rapes, although for this the correlation seems small.</li> 
+    <li> Black/African-American is positively related with all crime, while Asian has only low correlations with them.
+    </li>
+    <li>Mental Health expenditure per capita appears positively correlated with education of the population, while its correlation with GDP doesn't seem relevant. Its correlation with crimes is dubious, we will better investigate on it with some visualization tools.</li>
+    <li>GDP tends to be positively correlated with crimes, with exception of rapes. We will deepen this result later.</li>
+    <li>It seems that a young population (18-44) leads to higher homicides, aggravated assaults and violent crimes. Meanwhile, older population (45+) appears negatively related with crimes. </li>
+    <li>As you know, we have considered two proxies for Education until now, although they are highly correlated and it doesn't make sense to use both. Therefore, we decide to use perc_bscholder_25_44.</li>
+    <li>Let's consider also correlations among crimes. As we would expect, the correlation between the different crimes is positive, indicating that there's little differentation. So, whenever criminality in a state is high, the level of all crimes is, more or less, high. Although, among them, rape seems to be the less correlated with the others.</li>
+</ul>
+
+Moving forward, having observed the correlations above, we can also look into each variable. 
+
+To do so we can look up easily at the outcome of the data-set's summary.
+
+For age:
+
+```{r}
+kable(summary(project_1)[,5:10], 'simple')
+```
+
+The highest percentage of population is between 25 and 64 years old while the lowest has more than 85 years.
+
+For race:
+
+```{r}
+kable(summary(project_1)[,11:14], 'simple')
+
+```
+
+The majority of the population is white, followed by black and African-American. 
+
+For crimes:
+
+```{r}
+kable(summary(project_1)[,21:24], 'simple')
+```
+
+Remember that crimes are expressed in per 1000 terms. <br>
+Homicides are the less common crime, while violent crimes and aggravated assault occur on average to 4 and 2.5 people out of 1000.
+
+For mental health expenditure, education, population and GDP:
+
+```{r}
+
+kable(summary(project_1)[,c(16:19,25)], 'simple')
+
+```
+
+In this last summary table, it's worth mentioning that 
+
+<ul>
+<li>The variablility of mental health expenditure per capita seems high.</li> 
+<li>Population and GDP are not really interesting withouth further analysis and grouping by state or region, since the size of states can be very different, impacting these two variables.</li>
+<ul>
+
+## Univariate visualizations
+
+To present the most important data by State we created an
+[interactive map](https://lorenzomezzini.shinyapps.io/interactive_map/) which shows the selected variable distribution in US's states in a given year. 
+
+Moreover, we try to analyze graphically the main variables separately in order to potentially detect outliers or interesting path/characteristics.
+
+We start with a time series for mental health expenditure per capita, both for the whole US and the since regions. To do so we compute the median value in each region for every yea and created a time series on R. Then we plot the whole thing in one graph: 
+
+### Mental Health Expenditure (per capita)
+
+```{r}
+time_series_1
+```
+
+We can see that in general, the expenditure per capita has increased from 2004 to 2013, with some ups and downs throughout the period. The downward sloping part are especially relevant in two regions, West and South between 2009 and 2010/11. We don't have enough data, but a possible explanation could be the financial crisis which had impact on government budgeting. The largest difference between 2004 and 2013 values is observed for North-East, while the smallest is for South, of which gap between these years is of $7 circa.
+In the time series we only look at the median. It could be interesting to observe the same data through a boxplot to understand variability and outliers.
+
+We start by looking at each regions and US in total.
+
+```{r}
+mh_exp_boxplot2
+```
+
+We notice that US has a low variability, but here data for US are already considered as a total, it doesn't consider each state observed. 
+Instead, for the regions we capture, as before, that North-East is the one with largest variation, and we already know from the time series that this is due to the steadily increase in mh_exp per capita over the years. 
+
+The boxplots are ordered by median and we can see how North-East is the one with greatest median and how US's median (which we can consider as the mean median across regions) is second for magnitude. Thus, it's driven significantly by North East states expenditure. 
+
+South and Mid-West are the regions in which states seem to spend less for mental health expenditure in per capita terms. 
+
+We can clearly observe some outliers. But you can notice that they are quite clustered. Probably each group of outliers represents a state's obervations in different years. These are not a problem for our analysis, therefore we just continue.
+
+The second boxplot we propose is to shed the light on each region's state.
+
+
+```{r, }
+filetag <- "mh_exp_boxplot.png"
+
+png(filetag, height = 600, width = 500)
+ mh_exp_boxplot
+ dev.off()
+knitr::include_graphics(here::here("report/mh_exp_boxplot.png"))
+```
+
+<img src="mh_exp_boxplot.png" alt="Italian Trulli">
+
+
+As we expected, in regions such as South and West, where we observed outliers in the boxplot before, there are states which appear far from the others. These are District of Columbia and Alaska. The latter is indeed on the west coast, but it's somehow detached from the other state of the regions. Also District of Columbia is a case on its own since it's not a proper state but a federal district. 
+
+We confirm that Mid-West is the region with less variability among its states in mental health expenditure per capita.
+
+### Demographic: Age and Race Composition of the Population
+
+Let's continue our univariate visualization part with demographics variables.
+
+We do so by exploiting barplots. Again, we group results by regions as it can give us an idea of the distribution of population among the different US's areas. Of course, we continue to look also at the total US.
+To group results by region we took median values and computed percentages of the population.
+
+We start with a barplot for race composition of the population:
+
+```{r}
+ggplotly(demo_bar, width = 900, height = 500)
+```
+
+We immediately observe that between total US and North-East the difference is minimal. Although, no large difference is present for any of the region. In all of them there is a high prelevance of white people. The percentage for them is the highest in Mid-West area, while there's a particular high percentage of Black/African-American population in the South. <br> Moreover, while the group "other race" is a minority everywhere, it is not in the West, where instead Black/African-American percentage is lower than both asian and other races.
+
+Now on age composition:
+
+```{r}
+ggplotly(demo_bar_2,width = 900, height = 500)
+```
+
+Some results on overall observations throughout US we had on the summary table in the data overview section return here.
+What's new is the fact that we can make consideration on the "age" of each region. Although the composition of the population does not change in a relevant way. 
+
+### Demographic: Education
+
+Again, we group results by region we took median values of the percentage of bachelor's degree holder with age 25-44.
+We can also note from the following graph that, using our proxy for education, we have a lower percentage of bachelor's holder in the South. Instead, North-East seem has 6% more educated people than the mean value of US.
+
+```{r}
+ggplotly(demo_bar_3,width = 900, height = 500)
+```
+
+### Criminality Distribution Across States
+
+Again, we group results by region we took median values and transform values in per 1000 terms. 
+So, finally we ask ourselves the distribution of crimes in US.
+
+```{r}
+ggplotly(demo_bar_3,width = 900, height = 500)
+```
+
+South and West have the highest level of criminality, which a great departure from other regions for violent crimes and aggravated assaults. 
+Violent crimes seem to be the most common crime, while homicide is the least frequent and it is the lowest in Mid-West.
+
+```{r}
+mh_exp_boxplot3
+```
+
+We also look at a boxplot to understand the variability of education inside each region. 
+The variability is not too high, although we observe some outliers in South, again we think they are due to District of Columbia.
+
+
+## Multivariate visualizations
+
+Now that we discussed variables by themselves, we can start to see the various relationships that exist between multiple variables at the same time.
+Notice that when appropriate we use a log10 scale. This is useful for some of our variables because they cover a large range of values.
+We also decide to remove District of Columbia and United States, since in most cases the first creates outliners and is not a proper state and because US are just a total observation. 
+
+We start by considering the mental health expenditure per capita against the various kinds of criminality that we considered.
+
+```{r, warning=FALSE}
+ggplotly(mh_exp_plot,width = 900, height = 500)
+```
+
+From the scatterplot above we can see that the overall correlation is slightly negative. Which means that for an increase in public mental health per capita spending there is, on average, a decrease in criminality.
+
+
+We want to dive further into the study of mental health expenditure. Since we saw a positive correlation with education in the beginning, we now plot it in the form of a scatter plot.
+
+
+```{r}
+ggplotly(mh_exp_plot2,width = 900, height = 500)
+```
+
+Here the plot is very clear and shows a positive correlation between the two variables. The higher the education the higher is the spending for health. Even if we don't rule out the District of Columbia we would get a result not much different.
+
+This third scatterplot that we propose is criminality against education. 
+
+```{r}
+ggplotly(mh_exp_plot3,width = 900, height = 500)
+```
+
+Here we can see two distinct things. First of all the correlation is negative, thus, on average, the higher the education the lower is the criminality rate. The second thing we can notice is about the log GDP. In all the criminalities, except rape, the lighter dots (higher GDP) lies above the tendency line, while the darker dots (lower GDP) lies below.
+
+We further investigate this trough one last scatterplot.
+
+```{r}
+ggplotly(mh_exp_plot4,width = 900, height = 500)
+
+```
+
+From this plot we can better see the effect that we perceived before. There is a positive correlation between GDP and the kind of crimes we considered, except for rape, that has a negative correlation.
+
+
+Now we want to see a few of the correlation we saw before, but in the time dimension.
+
+First of all the effect of mental health expenditure on criminality over time. We decided to report here the time series for only one crime, homicide, since the patterns are similar for all the four of them:
+
+```{r}
+time_series_2
+```
+
+From this time series we can see how in the US the number of total homicides decreases over time. This can possibly follows from an increase in the mental health.
+
+
+Now we check the mental health spending against the education over time.
+
+```{r}
+time_series_3
+```
+
+Here we see that the increase in education over the selected decade also correspond to an increase in the public expenditure in mental health.
+
+Finally we check the homicides against the education. Again, the pattern is similar also for other type of crimes, therefore we report only the one for homicides:
+
+```{r}
+time_series_4
+```
+
+This final time series shows that in the decade of interest the decrease of homicides also correspond to an increase in education.
+
+However to better understand all of these effect and draw stronger conclusions we should do some panel data analysis on the data-set.
+
+Up to now we could only try to guess why such a correlation exist, and which are the social factor that induce such a result. 
+
+Such opinions for the correlations are the following:
+
+<ul>
+<li> Right now he have found three effects that we want to discuss for one last time.
+There is a negative correlation between mental health spending and violent crimes, we think that this is a reasonable correlation since taking care of possible dangerous people could reduce the impact on criminality, or at least reduce the relapse.</li>
+<li>There is a negative correlation between education and criminality, this also can be reasonable as a correlation since the education not only increases the hard skills, but also teaches people how to live in a civilized society, as well as it creates networks (easier to get help) and awareness on social problems. </li>
+<li>Finally there is a positive correlation between GPD and crimes, except for rape. At a first glance we thought this wasn't a good instance because a wealthier state will have less criminality than a poorer state. However after thinking a little bit about the possible social reasons behind it we thought that this might be caused by the social distance between poor and rich people. In a wealthier state the distance between wealthier and poorer might be high. This might induce more people to commit violent crimes to gain money or reduce debt. This might also explain why there is a positive effect for rape, in fact out of the four effect that we considered this is the one that is least related to possible wealth change in the individual that commits the crime. Although, these are only supposition, therefore we looked up and research finding a vast literature on how higher GDP has on average a positive effect on criminality. It results that there could be some simultaneous causality considerations to do, since GDP, education, unemployment and poverty are strictly linkes factors. 
+<br>Some references are [*Effect of GDP on Violent Crime, Northrup, Klaer*](https://smartech.gatech.edu/bitstream/handle/1853/51649/Klaer&NorthrupEconometricsReport.pdf), [*The Relationship between Crime and Economic Growth in Malaysia: Re-Examine Using Bound Test Approach, 2016, Mulok, Kogid, Lily, Asid *](https://www.researchgate.net/publication/309737921_The_Relationship_between_Crime_and_Economic_Growth_in_Malaysia_Re-Examine_Using_Bound_Test_Approach) </li>
+</ul>
+
+
+<font color="red"> From the December, 2:
+
+We will proceed with the analysis part. Moreover we encountered a problem with kable in the data part (it doesn't knit scrollbox and styling part) and we will try to fix it. Moreover, we've already  started to look up for creating a website and our aim is to complete it. </font>

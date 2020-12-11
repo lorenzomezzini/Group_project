@@ -2,7 +2,7 @@ baseURL = "https://group15-finalproject.netlify.app/"
 
 languageCode = "en-us"
 DefaultContentLanguage = "en"
-title = "Hugo Techdoc Theme"
+title = "What Are The Factors Influencing Criminality? Evidence from US"
 theme = "hugo-theme-techdoc"
 
 hasCJKLanguage = true
@@ -15,18 +15,13 @@ enableMissingTranslationPlaceholders = false
 [params]
 
     # Source Code repository section
-    description = "put your description"
-    github_repository = "https://github.com/thingsym/hugo-theme-techdoc"
-    version = "0.9.6"
+    description = "Gasparri Eleonora and Mezzini Lorenzo."
+    github_repository = "https://github.com/lorenzomezzini/Group_project"
 
     # Documentation repository section
     # documentation repository (set edit link to documentation repository)
     github_doc_repository = "https://github.com/thingsym/hugo-theme-techdoc"
 
-    # Analytic section
-    google_analytics_id = "" # Your Google Analytics tracking id
-    tag_manager_container_id = "" # Your Google Tag Manager container id
-    google_site_verification = "" # Your Google Site Verification for Search Console
 
     # Open Graph and Twitter Cards settings section
     # Open Graph settings for each page are set on the front matter.
@@ -74,10 +69,6 @@ enableMissingTranslationPlaceholders = false
         url = "/"
         weight = 1
 
-    [[menu.main]]
-        name = "Twitter"
-        url = "https://twitter.com/thingsym"
-        weight = 2
 
 # Markup configure section
 # See https://gohugo.io/getting-started/configuration-markup/
