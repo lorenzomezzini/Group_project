@@ -15,7 +15,7 @@ As you may have seen in the section on data, we end up having many features. Alt
 irrelevant or redundant. To see that we use a straightforward correlation command; this can be already a step towards the selection of most important variables that we may need for our analysis later.
 
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE, }
+```{r, echo = FALSE, message = FALSE, warning=FALSE, results='hide'}
 M <- project_1 %>%
   select(-c("State","Region","state_abbr", "year"))
 
@@ -28,7 +28,7 @@ corrplot(M, type="upper", order="hclust",
 dev.off()
 ```
 
-<img src = "corrplot_result.png" alt="corrplot" style="width:800px;height:800px;"
+<img src = "https://group15-finalproject.netlify.app/eda/corrplot_result.png" alt="corrplot" style="width:800px;height:800px;"
 class="center"/>
   
   The main findings are:
