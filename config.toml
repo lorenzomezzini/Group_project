@@ -68,7 +68,11 @@ enableMissingTranslationPlaceholders = false
         name = "Home"
         url = "/"
         weight = 1
-
+        
+    [[menu.main]]
+        name = "Interactive Map"
+        url = "https://lorenzomezzini.shinyapps.io/interactive_map/"
+        weight = 2
 
 # Markup configure section
 # See https://gohugo.io/getting-started/configuration-markup/

@@ -1,8 +1,18 @@
 ---
 draft: false
-title: Project's Outline
-weight: 12
+title: Related Work
+weight: 10
 ---
+  
+### Project Objectives
+  
+The objective of this project is to understand whether the variables we have found have an impact on criminality and if they do, how they affect it (negatively or positively and significantly or not). 
+
+We will focus on education, mental health expenditure by the governments, GDP and composition of the population.
+
+Our aim is to identify potential policy targets in dealing with criminality and, consequently, quality of life in a Country/State. 
+
+### Project's Outline
 
 The project has been organized in different phases, all carried through the software R. 
 In this section we will explain how we organized our work for you to have a clear idea of our project. 
