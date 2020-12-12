@@ -240,7 +240,7 @@ mh_exp_boxplot <- ggplot(na.omit(mh_exp_bp), aes(x=fct_reorder(State,mh_exp_pc,m
   geom_boxplot() +
   coord_flip() +
   facet_grid(Region ~ ., scale="free_y") +
-  labs( title= "Mental Health Expenditure Variablity by State")+ 
+  labs(y="mh_exp per capita", x="States by Region", title= "Mental Health Expenditure Variablity by State")+ 
   theme(axis.ticks.y = element_blank(), axis.title.y = element_blank())+
   scale_fill_brewer(palette="YlOrRd") +
   theme_gray() +

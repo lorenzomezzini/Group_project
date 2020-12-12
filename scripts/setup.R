@@ -11,7 +11,7 @@ packages <- c(
   "ggrepel", "gghighlight", "patchwork", "maps", "scales", # for plotting
   "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
   "readxl", "ggmap", "DT", "dygraphs", "leaflet", "htmltools" ,"rgdal", "shiny" ,"RColorBrewer", "plotly",
-  "gapminder", "corrplot", "plm", "stargazer", "lmtest"
+  "gapminder", "corrplot", "plm", "stargazer", "lmtest", "prettydoc"
 )
 purrr::walk(packages, library, character.only = TRUE)
 

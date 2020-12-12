@@ -1,0 +1,95 @@
+---
+draft: Explanatory Data Analysis
+title: Data Overview
+weight: 10
+---
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+source(here::here("scripts/setup.R"))
+source(here::here("scripts/Data_cleaning_script.R"))
+source(here::here("scripts/EDA_script.R"))
+```
+
+  
+As you may have seen in the section on data, we end up having many features. Although some of them might be
+irrelevant or redundant. To see that we use a straightforward correlation command; this can be already a step towards the selection of most important variables that we may need for our analysis later.
+
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE, results='hide'}
+M <- project_1 %>%
+  select(-c("State","Region","state_abbr", "year"))
+
+M <- cor(M, use = "complete.obs")
+
+filetag <- "corrplot_result.png"
+
+png(filetag, height = 1000, width = 1000)
+corrplot(M, type="upper", order="hclust",
+         col=brewer.pal(n=8, name="RdYlBu"), tl.cex = 2, bg = "gray87")
+dev.off()
+```
+
+<img src = "corrplot_result.png" alt="corrplot" style="width:800px;height:800px;"
+class="center"/>
+  
+  The main findings are:
+  
+  <ul>
+  <li>All variables describing the population, such as population, Female and Male, as well as age, are perfectly (or at least highly) correlated. For this reason, we can select population and ignore the amount of population which is female or male. Also because these values are always around 50% of population in each state, it wouldn't be too informative. Notice that, White and Black African-American seem negatively correlated, as well as Age_0_17 and Age_over85. These are only two examples, but the motivation is straightforward, i.e.: if the population is very young, it can't be old at the same time. </li>
+  <li> White and crimes have a negative corellation, except for rapes, although for this the correlation seems small.</li> 
+  <li> Black/African-American is positively related with all crime, while Asian has only low correlations with them.
+</li>
+  <li>Mental Health expenditure per capita appears positively correlated with education of the population, while its correlation with GDP doesn't seem relevant. Its correlation with crimes is dubious, we will better investigate on it with some visualization tools.</li>
+    <li>GDP tends to be positively correlated with crimes, with exception of rapes. We will deepen this result later.</li>
+    <li>It seems that a young population (18-44) leads to higher homicides, aggravated assaults and violent crimes. Meanwhile, older population (45+) appears negatively related with crimes. </li>
+    <li>As you know, we have considered two proxies for Education until now, although they are highly correlated and it doesn't make sense to use both. Therefore, we decide to use perc_bscholder_25_44.</li>
+  <li>Let's consider also correlations among crimes. As we would expect, the correlation between the different crimes is positive, indicating that there's little differentation. So, whenever criminality in a state is high, the level of all crimes is, more or less, high. Although, among them, rape seems to be the less correlated with the others.</li>
+  </ul>
+  
+  Moving forward, having observed the correlations above, we can also look into each variable. 
+
+To do so we can look up easily at the outcome of the data-set's summary.
+
+For age:
+
+```{r, warning=FALSE}
+kable(do.call(rbind, lapply(project_1[,5:10], summary)), longtable=TRUE, caption="Age's variables summary statistics")%>%
+  kable_styling(bootstrap_options = c("striped", "hover")) 
+```
+
+The highest percentage of population is between 25 and 64 years old while the lowest has more than 85 years.
+
+For race:
+
+```{r}
+kable(do.call(rbind, lapply(project_1[,11:14], summary)), longtable=TRUE, caption="Race's variables summary statistics")%>%
+  kable_styling(bootstrap_options = c("striped", "hover")) 
+```
+
+The majority of the population is white, followed by black and African-American. 
+
+For crimes:
+
+```{r}
+kable(do.call(rbind, lapply(project_1[,21:24], summary)), longtable=TRUE, caption="Crimes' variables summary statistics")%>%
+  kable_styling(bootstrap_options = c("striped", "hover")) 
+```
+
+Remember that crimes are expressed in per 1000 terms. <br>
+Homicides are the less common crime, while violent crimes and aggravated assault occur on average to 4 and 2.5 people out of 1000.
+
+For mental health expenditure, education, population and GDP:
+
+```{r, warning=FALSE}
+
+kable((do.call(rbind, lapply(project_1[,c(16:19,25)], summary)))[,1:6], longtable=TRUE, caption="Other variables summary statistics")%>%
+  kable_styling(bootstrap_options = c("striped", "hover"))%>%
+  scroll_box(width="100%")
+```
+
+In this last summary table, it's worth mentioning that 
+
+<ul>
+<li>The variablility of mental health expenditure per capita seems high.</li> 
+<li>Population and GDP are not really interesting withouth further analysis and grouping by state or region, since the size of states can be very different, impacting these two variables.</li>
+<ul>

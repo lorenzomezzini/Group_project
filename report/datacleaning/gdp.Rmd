@@ -4,7 +4,7 @@
 The data-set on GDP can be found in the Bureau of Economic Analysis, of U.S. Department of Commerce, [website](https://apps.bea.gov/iTable/iTable.cfm?7001=1200&7002=1&7003=200&7004=sic&7005=1&7006=xx&7007=-1&7035=-1&7036=-1&7090=70&7093=levels&isuri=1&reqid=70&step=10).
 
 ```{r, echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(head(GDP), list(scrollX='400px'), caption= "Raw Data - Dataset which gives us info on GDP, our variable of interest")
+DT::datatable(GDP, list(scrollX='400px', scrollY='300px'), caption= "Raw Data - Dataset which gives us info on GDP, our variable of interest")
 ```
 
 This has 483 observations for 27 columns, which are:
@@ -22,13 +22,7 @@ Of course, we also filter for years in the frame 2004-2013.
 The resulting dataset is "GDP_Cleaned":
 
 ```{r, echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(head(GDP_Cleaned), list(scrollX='400px'), caption= "Cleaned Data - Current-dollar GDP (millions of current dollars)")
+DT::datatable(GDP_Cleaned, list(scrollX='400px', scrollY='300px'), caption= "Cleaned Data - Current-dollar GDP (millions of current dollars)")
 ```
 
-Let's look at how many NAs are present:
-
-```{r}
-DT::datatable(as.data.frame(colSums(is.na(GDP_Cleaned))), list(scrollX='400px'), colnames = "Missing Values")
-```
-
-No missing values are present in "GDP_Cleaned"
+No missing values are present in "GDP_Cleaned".

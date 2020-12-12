@@ -2,9 +2,9 @@
 title: "What Are The Factors Influencing Criminality? Evidence from US"
 author: "Gasparri, Eleonora and Mezzini, Lorenzo"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output:
+output: 
   prettydoc::html_pretty:
-    theme: leonids
+    theme: tactile
     highlight: github
 ---
 

@@ -1,4 +1,12 @@
-# Exploratory data analysis
+---
+title: Explanatory Data Analysis
+author: 
+date: 
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
 
 ```{r, echo = FALSE, message = FALSE, warning=FALSE}
 source(here::here("scripts/setup.R"))
@@ -19,21 +27,22 @@ As you may have seen in the section on data, we end up having many features. Alt
 irrelevant or redundant. To see that we use a straightforward correlation command; this can be already a step towards the selection of most important variables that we may need for our analysis later.
 
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE}
+```{r, echo = FALSE, message = FALSE, warning=FALSE, results='hide'}
 M <- project_1 %>%
   select(-c("State","Region","state_abbr", "year"))
 
 M <- cor(M, use = "complete.obs")
 
-
 filetag <- "corrplot_result.png"
 
 png(filetag, height = 1000, width = 1000)
  corrplot(M, type="upper", order="hclust",
-        col=brewer.pal(n=8, name="RdYlBu"), tl.cex = 2)
+        col=brewer.pal(n=8, name="RdYlBu"), tl.cex = 2, bg = "gray87")
 dev.off()
-knitr::include_graphics(here::here("report/corrplot_result.png"))
 ```
+
+<img src = "corrplot_result.png" alt="corrplot" style="width:800px;height:800px;"
+class="center"/>
 
 The main findings are:
 
@@ -55,8 +64,9 @@ To do so we can look up easily at the outcome of the data-set's summary.
 
 For age:
 
-```{r}
-kable(summary(project_1)[,5:10], 'simple')
+```{r, warning=FALSE}
+kable(do.call(rbind, lapply(project_1[,5:10], summary)), longtable=TRUE, caption="Age's variables summary statistics")%>%
+  kable_styling(bootstrap_options = c("striped", "hover")) 
 ```
 
 The highest percentage of population is between 25 and 64 years old while the lowest has more than 85 years.
@@ -64,8 +74,8 @@ The highest percentage of population is between 25 and 64 years old while the lo
 For race:
 
 ```{r}
-kable(summary(project_1)[,11:14], 'simple')
-
+kable(do.call(rbind, lapply(project_1[,11:14], summary)), longtable=TRUE, caption="Race's variables summary statistics")%>%
+  kable_styling(bootstrap_options = c("striped", "hover")) 
 ```
 
 The majority of the population is white, followed by black and African-American. 
@@ -73,7 +83,8 @@ The majority of the population is white, followed by black and African-American.
 For crimes:
 
 ```{r}
-kable(summary(project_1)[,21:24], 'simple')
+kable(do.call(rbind, lapply(project_1[,21:24], summary)), longtable=TRUE, caption="Crimes' variables summary statistics")%>%
+  kable_styling(bootstrap_options = c("striped", "hover")) 
 ```
 
 Remember that crimes are expressed in per 1000 terms. <br>
@@ -81,10 +92,11 @@ Homicides are the less common crime, while violent crimes and aggravated assault
 
 For mental health expenditure, education, population and GDP:
 
-```{r}
+```{r, warning=FALSE}
 
-kable(summary(project_1)[,c(16:19,25)], 'simple')
-
+kable((do.call(rbind, lapply(project_1[,c(16:19,25)], summary)))[,1:6], longtable=TRUE, caption="Other variables summary statistics")%>%
+  kable_styling(bootstrap_options = c("striped", "hover"))%>%
+  scroll_box(width="100%")
 ```
 
 In this last summary table, it's worth mentioning that 
@@ -101,7 +113,7 @@ To present the most important data by State we created an
 
 Moreover, we try to analyze graphically the main variables separately in order to potentially detect outliers or interesting path/characteristics.
 
-We start with a time series for mental health expenditure per capita, both for the whole US and the since regions. To do so we compute the median value in each region for every yea and created a time series on R. Then we plot the whole thing in one graph: 
+We start with a time series for mental health expenditure per capita, both for the whole US and the single regions. To do so we compute the median value in each region for every year and create a time series on R. Then we plot the whole thing in one graph: 
 
 ### Mental Health Expenditure (per capita)
 
@@ -130,19 +142,17 @@ We can clearly observe some outliers. But you can notice that they are quite clu
 The second boxplot we propose is to shed the light on each region's state.
 
 
-```{r, }
+```{r, results='hide'}
 filetag <- "mh_exp_boxplot.png"
 
 png(filetag, height = 600, width = 500)
  mh_exp_boxplot
  dev.off()
-knitr::include_graphics(here::here("report/mh_exp_boxplot.png"))
 ```
 
-<img src="mh_exp_boxplot.png" alt="Italian Trulli">
+<img src = "mh_exp_boxplot.png" alt="boxplot" style="width:600px;height:600px;" alt="centered image"/>
 
-
-As we expected, in regions such as South and West, where we observed outliers in the boxplot before, there are states which appear far from the others. These are District of Columbia and Alaska. The latter is indeed on the west coast, but it's somehow detached from the other state of the regions. Also District of Columbia is a case on its own since it's not a proper state but a federal district. 
+As we expected, in regions such as South and West, where we observed outliers in the boxplot before, there are states which appear far from the others. These are District of Columbia and Alaska. The latter is indeed on the west coast, but it's somehow detached from the other states of the region. Also District of Columbia is a case on its own since it's not a proper state but a federal district. 
 
 We confirm that Mid-West is the region with less variability among its states in mental health expenditure per capita.
 
@@ -167,17 +177,25 @@ Now on age composition:
 ggplotly(demo_bar_2,width = 900, height = 500)
 ```
 
-Some results on overall observations throughout US we had on the summary table in the data overview section return here.
+The same results on overall observations throughout US as we had on the summary table in the data overview section return here.
 What's new is the fact that we can make consideration on the "age" of each region. Although the composition of the population does not change in a relevant way. 
 
 ### Demographic: Education
 
-Again, we group results by region we took median values of the percentage of bachelor's degree holder with age 25-44.
-We can also note from the following graph that, using our proxy for education, we have a lower percentage of bachelor's holder in the South. Instead, North-East seem has 6% more educated people than the mean value of US.
+Again, we group results by region and we took median values of the percentage of bachelor's degree holder with age 25-44.
+We can notice from the following graph that, using our proxy for education, we have a lower percentage of bachelor's holder in the South. Instead, North-East seem has 6% more educated people than the mean value of US.
 
 ```{r}
 ggplotly(demo_bar_3,width = 900, height = 500)
 ```
+
+We also look at a boxplot to understand the variability of education inside each region. 
+The variability is not too high, although we observe some outliers in South, again we think they are due to District of Columbia:
+
+```{r}
+mh_exp_boxplot3
+```
+
 
 ### Criminality Distribution Across States
 
@@ -188,16 +206,8 @@ So, finally we ask ourselves the distribution of crimes in US.
 ggplotly(demo_bar_3,width = 900, height = 500)
 ```
 
-South and West have the highest level of criminality, which a great departure from other regions for violent crimes and aggravated assaults. 
+South and West have the highest level of criminality, with a great departure from other regions for violent crimes and aggravated assaults. 
 Violent crimes seem to be the most common crime, while homicide is the least frequent and it is the lowest in Mid-West.
-
-```{r}
-mh_exp_boxplot3
-```
-
-We also look at a boxplot to understand the variability of education inside each region. 
-The variability is not too high, although we observe some outliers in South, again we think they are due to District of Columbia.
-
 
 ## Multivariate visualizations
 
@@ -205,7 +215,7 @@ Now that we discussed variables by themselves, we can start to see the various r
 Notice that when appropriate we use a log10 scale. This is useful for some of our variables because they cover a large range of values.
 We also decide to remove District of Columbia and United States, since in most cases the first creates outliners and is not a proper state and because US are just a total observation. 
 
-We start by considering the mental health expenditure per capita against the various kinds of criminality that we considered.
+Since from the corrplot in the first part of the EDA section the correlation between mental health expenditure and criminality appeared dubious we start investigating this relationship through a scatterplot. We consider mental health expenditure per capita against the various kinds of criminality: homicides, violent crime, rape and aggravated assault.
 
 ```{r, warning=FALSE}
 ggplotly(mh_exp_plot,width = 900, height = 500)
@@ -213,33 +223,15 @@ ggplotly(mh_exp_plot,width = 900, height = 500)
 
 From the scatterplot above we can see that the overall correlation is slightly negative. Which means that for an increase in public mental health per capita spending there is, on average, a decrease in criminality.
 
+Remember that from the corrplot we have identified a positive correlation between education and mental health expenditure per capita. The higher the education the higher is the spending for health. We tried to show this through a scatterplot and the outcome is exaclty what we expected by the corrplot, even if we don't rule out the District of Columbia.
 
-We want to dive further into the study of mental health expenditure. Since we saw a positive correlation with education in the beginning, we now plot it in the form of a scatter plot.
-
-
-```{r}
-ggplotly(mh_exp_plot2,width = 900, height = 500)
-```
-
-Here the plot is very clear and shows a positive correlation between the two variables. The higher the education the higher is the spending for health. Even if we don't rule out the District of Columbia we would get a result not much different.
-
-This third scatterplot that we propose is criminality against education. 
+This second scatterplot that we propose is criminality against education. 
 
 ```{r}
 ggplotly(mh_exp_plot3,width = 900, height = 500)
 ```
 
-Here we can see two distinct things. First of all the correlation is negative, thus, on average, the higher the education the lower is the criminality rate. The second thing we can notice is about the log GDP. In all the criminalities, except rape, the lighter dots (higher GDP) lies above the tendency line, while the darker dots (lower GDP) lies below.
-
-We further investigate this trough one last scatterplot.
-
-```{r}
-ggplotly(mh_exp_plot4,width = 900, height = 500)
-
-```
-
-From this plot we can better see the effect that we perceived before. There is a positive correlation between GDP and the kind of crimes we considered, except for rape, that has a negative correlation.
-
+Here we can see two distinct things. First of all the correlation is negative, thus, on average, the higher the education the lower is the criminality rate. The second thing we can notice is about the log GDP. In all the criminalities, except rape, the lighter dots (higher GDP) lies above the tendency line, while the darker dots (lower GDP) lies below. Therefore, there is a positive correlation between GDP and the kind of crimes we considered, except for rape, that has a negative correlation.
 
 Now we want to see a few of the correlation we saw before, but in the time dimension.
 
@@ -268,7 +260,7 @@ time_series_4
 
 This final time series shows that in the decade of interest the decrease of homicides also correspond to an increase in education.
 
-However to better understand all of these effect and draw stronger conclusions we should do some panel data analysis on the data-set.
+However to better understand all of these effect and draw stronger conclusions we should do some panel data analysis on the data-set as we will do in the next section.
 
 Up to now we could only try to guess why such a correlation exist, and which are the social factor that induce such a result. 
 
@@ -283,6 +275,4 @@ There is a negative correlation between mental health spending and violent crime
 </ul>
 
 
-<font color="red"> From the December, 2:
 
-We will proceed with the analysis part. Moreover we encountered a problem with kable in the data part (it doesn't knit scrollbox and styling part) and we will try to fix it. Moreover, we've already  started to look up for creating a website and our aim is to complete it. </font>

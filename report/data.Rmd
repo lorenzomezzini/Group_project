@@ -1,9 +1,17 @@
+---
+title: Data
+author: 
+date: 
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
 
 ```{r, echo = FALSE, message = FALSE, warning=FALSE}
 source(here::here("scripts/setup.R"))
 source(here::here("scripts/Data_cleaning_script.R"))
 ```
-
 
 In this part we present the data we use to analyse and answer our research questions.
 We start by importing and cleaning them. 
@@ -31,7 +39,6 @@ Notice that we clean each data-set such that they all appear "standardized" (for
 ```{r child = 'datacleaning/education.Rmd'}
 ```
 
-
 ## GDP
 
 ```{r child = 'datacleaning/gdp.Rmd'}
@@ -40,20 +47,10 @@ Notice that we clean each data-set such that they all appear "standardized" (for
 ## Final Dataset
 Now that we have each data-set cleaned and wrangled in a "standardized" way we can join them by State and year.
 
-Although, simply joining them produces NAs:
-
-```{r}
-kable(as.data.frame(colSums(is.na(demographics%>%
-  full_join(mh_exp, by=c("State","year"))%>%
-  full_join(edu, by=c("State","year"))%>%
-  full_join(GDP_Cleaned, by=c("State","year"))%>%
-  full_join(estimated_crimes, by=c("State","year"))))), 'simple', col.names = "Missing Values")
-```
-
-By looking at the data we understand that this happens because some data-set considered also Divisions and this makes appear among the States also New England, Mideast, Great Lakes, Plains, Southeast, Southwest, Rocky Mountain and Far West.We filter them out, as well as Puerto Rico. Indeed, the latter presents many missing values too. 
+Although, simply joining them produces NAs and by looking at the data we understand that this happens because some data-set considered also <b>Divisions</b> and this makes appear among the States also New England, Mideast, Great Lakes, Plains, Southeast, Southwest, Rocky Mountain and Far West. We filter them out, as well as Puerto Rico. Indeed, the latter presents many missing values too. 
 
 The resulting dataset is called "project":
 
 ```{r, echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(head(project), list(scrollX='400px'),  caption="Final Dataset")
+  DT::datatable(project, options = list(scrollX='400px', scrollY='300px'), caption = 'Final Dataset')
 ```

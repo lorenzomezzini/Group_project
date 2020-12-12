@@ -1,4 +1,12 @@
-# Introduction
+---
+title: Introduction
+author: 
+date: 
+output:
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+---
 
 ```{r, echo = FALSE, message = FALSE, warning=FALSE}
 source(here::here("scripts/setup.R"))
@@ -32,7 +40,7 @@ We create the whole final data-set with all the wanted information from the diff
 
 Then, we begin the Explanatory Data Analysis exploiting visualization tools and summarizing main characteristics of the data-set.
 
-<font color="red">We will update this part as we proceed with our project (with analysis and conclusion/results parts) </font>
+Finally, we analyze the results of panel data regressions and previous findings to answer our research questions and sum up the main take-home messages.
 
 ## Research questions
 

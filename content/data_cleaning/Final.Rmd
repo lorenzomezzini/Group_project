@@ -1,0 +1,18 @@
+---
+title: "Final Dataset"
+draft: false
+weight: 45 
+---
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+source(here::here("scripts/setup.R"))
+source(here::here("scripts/Data_cleaning_script.R"))
+```
+Now that we have each data-set cleaned and wrangled in a "standardized" way we can join them by State and year.
+
+Although, simply joining them produces NAs and by looking at the data we understand that this happens because some data-set considered also <b>Divisions</b> and this makes appear among the States also New England, Mideast, Great Lakes, Plains, Southeast, Southwest, Rocky Mountain and Far West. We filter them out, as well as Puerto Rico. Indeed, the latter presents many missing values too. 
+
+The resulting dataset is called "project":
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+  DT::datatable(project, options = list(scrollX='400px', scrollY='300px'), caption = 'Final Dataset')
+```

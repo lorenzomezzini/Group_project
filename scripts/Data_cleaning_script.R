@@ -130,6 +130,9 @@ GDP_Cleaned <- GDP %>%
   #select year of interest in line with other dataset availability
   arrange(year)
 
+# Count for NA in each column
+colSums(is.na(GDP_Cleaned))
+
 # ----------------------------------------------------------------------------------- #
 # ----------------------------------------------------------------------------------- #
 
@@ -163,15 +166,13 @@ dem_2004_2010_race <- st_est00int_race %>%
                            "AmericanIndianAlaska" = "3",
                            "Asian" = "4",
                            "HawaiianPacificIslanders" = "5",
-                           "Racesgreaterthan1" = "6")) %>% #rename levels 
-  
+                           "Racesgreaterthan1" = "6")) %>% 
+  #rename levels 
   pivot_longer(c("2004","2005","2006","2007","2008","2009","2010"),
                names_to="year",values_to="Population") %>% 
   #increase number of observation of population for each state by adding a variable "year"
-  
   pivot_wider(names_from = Race, values_from=Population) %>% 
-  #increase number of variables, creating one for each race category
-  
+  #increase number of variables, creating one for each race cathegory
   transmute(State, year = as.numeric(year), White, BlackAfricanAmerican, Asian,
             Other_race=AmericanIndianAlaska + HawaiianPacificIslanders + Racesgreaterthan1)
   #Put together into 'Other' three Race categories.
@@ -190,17 +191,16 @@ dem_2004_2010_agesex <- st_est00int_agesex %>%
             "2006"=POPESTIMATE2006, "2007"=POPESTIMATE2007, 
             "2008"=POPESTIMATE2008, "2009"=POPESTIMATE2009, 
             "2010"=POPESTIMATE2010) %>%
-  
+  #Rename features and levels and transform sex and region into factors
   mutate(Sex = fct_recode(Sex,
                           "Total" = "0",
                           "Male" = "1",
                           "Female" = "2"))%>%
   pivot_longer(c("2004","2005","2006","2007","2008","2009","2010"), 
                names_to="year",values_to="Population") %>% 
-  #increase number of observation of population for each state by adding a variable "year"
-  
+  #increase number of observation of population for each state by adding variables "year" and "population"
   pivot_wider(names_from = c(Sex,Age), values_from=Population) %>% 
-  #increase number of variables, creating one for each sex category
+  #increase number of variables, creating one for each sex cathegory
   transmute(State, Region, year = as.numeric(year), population=Total_999, Male=Male_999,
             Female=Female_999, Age_0_17=rowSums(.[4:21]), 
             Age_18_24=rowSums(.[22:28]), Age_25_44=rowSums(.[29:48]),
@@ -208,15 +208,13 @@ dem_2004_2010_agesex <- st_est00int_agesex %>%
             Age_over85=population-Age_0_17-Age_18_24-Age_25_44-Age_45_64-Age_65_84) 
             #create groups of age
 
-
 dem_2004_2010<-dem_2004_2010_agesex %>%
   left_join(dem_2004_2010_race, by=c("State","year")) 
             
             
-            
 #2010_2019
 # We divide the dataset in three parts: sex, age and race, 
-# to be bale to tidy each part and then put everything back together
+# to be able to tidy each part and then put everything back together
 
 #sex
 dem_2011_2013_sex <- sc_est2019_alldata6 %>%
@@ -227,11 +225,12 @@ dem_2011_2013_sex <- sc_est2019_alldata6 %>%
             '2013' = sum(POPESTIMATE2013)) %>%
   ungroup()%>%
   pivot_longer(c('2011','2012','2013'),names_to = 'year',values_to = 'pop' ) %>%
+  #increase number of observation of population for each state by adding variables "year" and "pop"
   transmute(State=NAME, year = as.numeric(year), pop, 
             SEX=fct_recode(as.factor(SEX), "population"="0", 
                            "Male"="1", "Female"="2"))%>%
-  
   pivot_wider(names_from = SEX, values_from= pop)
+  #increase number of variables, creating one for each sex cathegory
 
 #Race
 dem_2011_2013_race <- sc_est2019_alldata6 %>%
@@ -242,6 +241,7 @@ dem_2011_2013_race <- sc_est2019_alldata6 %>%
             '2013' = sum(POPESTIMATE2013)) %>%
   ungroup()%>%
   pivot_longer(c('2011','2012','2013'),names_to = 'year',values_to = 'pop' ) %>%
+  #increase number of observation of population for each state by adding variables "year" and "pop"
   transmute(State=NAME, year, pop, RACE=fct_recode(as.factor(RACE), 
                                                    "White" = "1",
                                                    "BlackAfricanAmerican" = "2",
@@ -249,7 +249,9 @@ dem_2011_2013_race <- sc_est2019_alldata6 %>%
                                                    "Asian" = "4",
                                                    "HawaiianPacificIslanders" = "5",
                                                    "Racesgreaterthan1" = "6"))%>%
+  #Rename RACE's levels and tranform it into a factor
   pivot_wider(names_from = RACE, values_from= pop)%>%
+  #increase number of variables, creating one for each race cathegory
   transmute(State, year = as.numeric(year), White, BlackAfricanAmerican,
             Asian, Other_race=AmericanIndianAlaska + 
               HawaiianPacificIslanders + Racesgreaterthan1) 
@@ -264,13 +266,15 @@ dem_2011_2013_age <- sc_est2019_alldata6 %>%
             '2013' = sum(POPESTIMATE2013)) %>%
   ungroup()%>%
   pivot_longer(c('2011','2012','2013'),names_to = 'year',values_to = 'pop' ) %>%
+  #increase number of observation of population for each state by adding variables "year" and "pop"
   pivot_wider(names_from = AGE, values_from= pop)%>%
+  #increase number of variables, creating one for each age
   transmute(State=NAME, year = as.numeric(year), Age_0_17=rowSums(.[3:20]), 
             Age_18_24=rowSums(.[21:27]), 
             Age_25_44=rowSums(.[28:47]), 
             Age_45_64=rowSums(.[48:67]), 
             Age_65_84=rowSums(.[68:87]),
-            Age_over85=rowSums(.[88]))
+            Age_over85=rowSums(.[88]))  #Create age ranges
 
 #put together the three data sets with demographics of years 2011-2013:
 dem_2011_2013 <- dem_2011_2013_sex %>%
@@ -293,14 +297,14 @@ dem_us_2011_2013 <- dem_2011_2013 %>%
 dem_2011_2013 <- rbind(dem_2011_2013, dem_us_2011_2013)
   
 
-
 # put together complete demographic data sets from the two years-ranges:
 demographics<- merge(dem_2004_2010, dem_2011_2013, all.x = TRUE, all.y = TRUE) %>%
   fill(Region, .direction = "down") %>% 
   # We introduce region for the missing values 
   arrange(year) 
-  
 
+#see how many NAs per column we have:  
+colSums(is.na(demographics))
 
 # ----------------------------------------------------------------------------------- #
 # ----------------------------------------------------------------------------------- #
@@ -348,7 +352,8 @@ edu <- edu_per1000_18_24%>%
 # in both, we filtered for years of interest and used pivot_longer to increase number 
 # of observation of population for each state by adding a variable "year"
 
-
+#see how many NAs per column we have:  
+colSums(is.na(edu))
 
 # ----------------------------------------------------------------------------------- #
 # ----------------------------------------------------------------------------------- #
@@ -356,8 +361,14 @@ edu <- edu_per1000_18_24%>%
 
 
 # ---------------------------------- TOTAL DATA SET --------------------------------- #
-'%nin%' <- Negate('%in%')
+#see how many NAs per column we have:  
+colSums(is.na(demographics%>%
+                full_join(mh_exp, by=c("State","year"))%>%
+                full_join(edu, by=c("State","year"))%>%
+                full_join(GDP_Cleaned, by=c("State","year"))%>%
+                full_join(estimated_crimes, by=c("State","year"))))
 
+#To avoid NAs we construct a full final dataset as follows:
 project <-demographics%>%
   full_join(mh_exp, by=c("State","year"))%>%
   full_join(edu, by=c("State","year"))%>%
