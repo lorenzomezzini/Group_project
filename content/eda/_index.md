@@ -1,7 +1,7 @@
 ---
-draft: Explanatory Data Analysis
-title: Introduction
-weight: 5
+draft: false
+title: Explanatory Data Analysis
+weight: 15
 ---
   
 In this section we are going to do an explanatory data analysis by using the cleaned data described 
