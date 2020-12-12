@@ -1,0 +1,52 @@
+---
+title: "Mental Health expenditure"
+draft: false
+weight: 20
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+
+
+<div id="sources-and-description" class="section level3">
+<h3>Sources and Description</h3>
+<p>For this part we have to download data-set for each year separately from 2004 to 2013 and you can find them at <a href="https://www.kff.org/other/state-indicator/smha-expenditures-per-capita/?activeTab=map&amp;currentTimeframe=3&amp;selectedDistributions=smha-expenditures-per-capita&amp;sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D">this link</a>.</p>
+<p>Since the structure for each year’s data-set is the same we report only the first one, for year 2004:</p>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","caption":"<caption>Raw data on Mental Health Expenditure per capita<\/caption>","data":[["1","2","3","4","5","6"],["United States","Alabama","Alaska","Arizona","Arkansas","California"],["$93.04","$58.78","$287.56","$135.64","$32.95","$113.61"],[null,null,null,null,"1","2"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Location<\/th>\n      <th>SMHA Expenditures Per Capita<\/th>\n      <th>Footnotes<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<p>The data-set for each year contains 51 observations for 3 variables, which are</p>
+<ul>
+<li>
+<b>Location</b> the State or US
+</li>
+<li>
+<b>SMHA Expenditures Per Capita</b> is the State Mental Health Agency data on expenditures in mental health per capita in each state
+</li>
+<li>
+<b>population</b> the number of population in a given year and State.
+</li>
+<li>
+<b>footnotes</b> which are notes on the data such as the fact that the reporting period reflects spending in state fiscal year, which may vary by state. Data are not adjusted for inflation and Puerto Rico is included in the US’s total.
+</li>
+</ul>
+</div>
+<div id="wranglingcleaning" class="section level3">
+<h3>Wrangling/cleaning</h3>
+<p>We cleaned data-set for each year and then we joined them. To cleaned them we remove the dollar sign $ from the expenditure per capita values, as well as transform them into numeric. We also change its name of mental health expenditure per capita to the respective year of the dataset, i.e. <b>2004</b>. This is done to ease the join, which is made by <b>State</b>, which is the renamed previous <b>Location</b>.</p>
+<p>The resulting dataset on mental health is “mh_exp” and is reported below:</p>
+<div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","caption":"<caption>Cleaned data - Mental Health Expenditure Per Capita, 2004-2013<\/caption>","data":[["1","2","3","4","5","6"],["United States","Alabama","Alaska","Arizona","Arkansas","California"],[2004,2004,2004,2004,2004,2004],[93.04,58.78,287.56,135.64,32.95,113.61]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>mh_exp_pc<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>We can also look at how many NAs are present:
+<div id="htmlwidget-3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"filter":"none","data":[["State","year","mh_exp_pc"],[0,0,11]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Missing Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script></p>
+<p>There are some, and if you look at data you can see that the missing value comes usually from Puerto Rico’s observation.</p>
+</div>

@@ -1,7 +1,5 @@
 ---
 title: "Crime data"
-author: "Eleonora Gasparri and Lorenzo Mezzini"
-date: "12/12/2020"
 draft: false
 weight: 15
 output:
