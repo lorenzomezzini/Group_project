@@ -1,0 +1,49 @@
+---
+title: "Gross Domestic Product"
+draft: false
+weight: 25
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+
+
+<div id="source-and-descriptions" class="section level3">
+<h3>Source and Descriptions</h3>
+<p>The data-set on GDP can be found in the Bureau of Economic Analysis, of U.S. Department of Commerce, <a href="https://apps.bea.gov/iTable/iTable.cfm?7001=1200&amp;7002=1&amp;7003=200&amp;7004=sic&amp;7005=1&amp;7006=xx&amp;7007=-1&amp;7035=-1&amp;7036=-1&amp;7090=70&amp;7093=levels&amp;isuri=1&amp;reqid=70&amp;step=10">website</a>.</p>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","caption":"<caption>Raw Data - Dataset which gives us info on GDP, our variable of interest<\/caption>","data":[["1","2","3","4","5","6"],["00000","00000","00000","00000","00000","00000"],["United States","United States","United States","United States","United States","United States"],[1,2,3,4,5,6],["Real GDP (millions of chained 2012 dollars)","Chain-type quantity indexes for real GDP","Current-dollar GDP (millions of current dollars)","Compensation (millions of dollars)","Gross operating surplus (millions of dollars)","Taxes on production and imports (TOPI) less subsides (millions of dollars)"],[11521938,71.136,8577552,4713220,3286531,577806],[12038283,74.324,9062817,5075701,3384012,603105],[12610491,77.857,9630663,5409932,3592352,628376],[13130987,81.07,10252347,5854629,3734996,662716],[13262079,81.88,10581822,6046343,3866496,668980],[13493064,83.306,10936418,6143368,4074414,718634],[13879129,85.689,11458246,6362296,4339386,756559],[14406382,88.945,12213730,6729301,4662712,821712],[14912509,92.07,13036637,7077721,5077391,881527],[15338257,94.698,13814609,7491255,5377778,945573],[15626029,96.475,14451860,7889369,5580241,982245],[15604687,96.343,14712845,8068679,5646978,997183],[15208834,93.899,14448932,7767191,5713270,968471],[15598753,96.306,14992052,7932969,6051817,1007266],[15840664,97.8,15542582,8234013,6264848,1043716],[16197007,100,16197007,8575371,6543558,1078078],[16495369,101.842,16784851,8843638,6812271,1128943],[16912038,104.415,17527258,9259655,7084859,1182744],[17432170,107.626,18238301,9709535,7310806,1217959],[17730509,109.468,18745075,9974844,7520208,1250022],[18144105,112.021,19542980,10433094,7805796,1304090],[18687786,115.378,20611861,10960567,8269831,1381463],[19091662,117.872,21433226,11444495,8571191,1417539]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>GeoFips<\/th>\n      <th>GeoName<\/th>\n      <th>LineCode<\/th>\n      <th>Description<\/th>\n      <th>1997<\/th>\n      <th>1998<\/th>\n      <th>1999<\/th>\n      <th>2000<\/th>\n      <th>2001<\/th>\n      <th>2002<\/th>\n      <th>2003<\/th>\n      <th>2004<\/th>\n      <th>2005<\/th>\n      <th>2006<\/th>\n      <th>2007<\/th>\n      <th>2008<\/th>\n      <th>2009<\/th>\n      <th>2010<\/th>\n      <th>2011<\/th>\n      <th>2012<\/th>\n      <th>2013<\/th>\n      <th>2014<\/th>\n      <th>2015<\/th>\n      <th>2016<\/th>\n      <th>2017<\/th>\n      <th>2018<\/th>\n      <th>2019<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+This has 483 observations for 27 columns, which are:
+<ul>
+<li>
+<b>GeoFips</b> and <b>GeoName</b> which identify the state, or the whole US through a code and the name, respectively
+</li>
+<li>
+<b>LineCode</b> and <b>Description</b> which identify the kind of variable we are looking at, i.e. Current-dollar GDP (millions of current dollars), Real GDP (millions of chained 2012 dollars), etc… They are of 8 different kind, but we will focus on Current-dollar GDP as you will see
+</li>
+<li>
+<b>1997 … 2019</b> one column for each year observed
+</li>
+</ul>
+</div>
+<div id="wranglingcleaning" class="section level3">
+<h3>Wrangling/Cleaning</h3>
+<p>In order to clean the dataset we filter for one values of <b>Description</b> only, since it’s the one of interest for us: Current-dollar GDP (millions of current dollars). We delete the column which are not relevat, remaining with renamed <b>GeoName</b>, which is now <b>State</b>, and <b>1997 … 2019</b>. We use “pivot_longer” to create two variables <b>year</b> and <b>Current_dollar_GDP_millions</b> increasing the length of the data-set.
+Of course, we also filter for years in the frame 2004-2013.</p>
+<p>The resulting dataset is “GDP_Cleaned”:</p>
+<div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","caption":"<caption>Cleaned Data - Current-dollar GDP (millions of current dollars)<\/caption>","data":[["1","2","3","4","5","6"],["United States","Alabama","Alaska","Arizona","Arkansas","California"],[2004,2004,2004,2004,2004,2004],[12213730,146886.7,34987.9,205390.5,84557,1632428.7]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>Current_dollar_GDP_millions<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Let’s look at how many NAs are present:</p>
+<div id="htmlwidget-3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"filter":"none","data":[["State","year","Current_dollar_GDP_millions"],[0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Missing Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>No missing values are present in “GDP_Cleaned”</p>
+</div>

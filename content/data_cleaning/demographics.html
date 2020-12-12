@@ -1,0 +1,125 @@
+---
+title: "US Demographics"
+draft: false
+weight: 35
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+
+
+<div id="sources-and-description" class="section level3">
+<h3>Sources and Description</h3>
+<p>We used the 3 dataset in the <a href="https://www.census.gov/">United States Census Bureau’s website</a>.</p>
+<p>The first one is about race composition from 2000 to 2010
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","caption":"<caption>Raw data - Demographics, Race, 2000-2010<\/caption>","data":[["1","2","3","4","5","6"],[0,0,0,0,0,0],[0,0,0,0,0,0],["0","0","0","0","0","0"],["United States","United States","United States","United States","United States","United States"],[0,1,2,3,4,5],[281424600,228106498,35704871,2663851,10589122,462536],[282162411,228530479,35814706,2684491,10705839,467339],[284968955,230049196,36263029,2769731,11182404,487476],[287625193,231446915,36684650,2857113,11649265,507265],[290107933,232717191,37066096,2947575,12099525,526390],[292805298,234120447,37510582,3044517,12542740,547317],[295516599,235491577,37961688,3147772,13007663,568804],[298379912,236954818,38443048,3258666,13475846,590839],[301231207,238378087,38935533,3377213,13934641,613053],[304093966,239783014,39429414,3504878,14395296,635677],[306771529,241034399,39902270,3636766,14833733,657983],[308745538,241937061,40250635,3739506,15159516,674625],[309349689,242295420,40357516,3753858,15239011,677653]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>REGION<\/th>\n      <th>DIVISION<\/th>\n      <th>STATE<\/th>\n      <th>NAME<\/th>\n      <th>RACE<\/th>\n      <th>ESTIMATESBASE2000<\/th>\n      <th>POPESTIMATE2000<\/th>\n      <th>POPESTIMATE2001<\/th>\n      <th>POPESTIMATE2002<\/th>\n      <th>POPESTIMATE2003<\/th>\n      <th>POPESTIMATE2004<\/th>\n      <th>POPESTIMATE2005<\/th>\n      <th>POPESTIMATE2006<\/th>\n      <th>POPESTIMATE2007<\/th>\n      <th>POPESTIMATE2008<\/th>\n      <th>POPESTIMATE2009<\/th>\n      <th>CENSUS2010POP<\/th>\n      <th>POPESTIMATE2010<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[1,2,5,6,7,8,9,10,11,12,13,14,15,16,17,18]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script></p>
+<p>This one contains 364 observations for 18 variables, which are</p>
+<ul>
+<li>
+<b>REGION</b>,<b>DIVISION</b>, <b>STATE</b>, <b>NAME</b> which identifies the region, division, state code and name of the state.
+</li>
+<li>
+<b>RACE</b> is the race, it goes from 0 to 6, with 0 being the total and 1-6 identifying ethinicities as White, Black/African-American and so on
+</li>
+<li>
+<b>POPBASE2000</b> and <b>POPESTIMATEyear</b> for each year, which are the estimated population in a State in a given year, for the respective race cathegory
+</li>
+</ul>
+<p>The second one is about age and sex composition from 2000 to 2010</p>
+<p><div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","caption":"<caption>Raw data - Demographics, Age &amp; Sex, 2000-2010<\/caption>","data":[["1","2","3","4","5","6"],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],["United States","United States","United States","United States","United States","United States"],[0,0,0,0,0,0],[0,1,2,3,4,5],[3805718,3820647,3790534,3832855,3926400,3965175],[3855956,3798691,3800144,3821118,3902384,3967834],[4012658,3855407,3800096,3802710,3827346,3910033],[3951461,4004674,3856114,3804336,3812607,3837187],[3975871,3936139,4002836,3860727,3816873,3823568],[4014258,3953063,3933735,4008220,3876609,3829607],[4004393,3987032,3952632,3943215,4030128,3893128],[4041738,3972124,3988119,3966022,3970880,4050582],[4147997,4002215,3973479,4004011,3998260,3993489],[4132735,4100756,4004146,3992320,4041170,4024297],[4003587,4078797,4103002,4025675,4033457,4070265],[3944153,3978070,4096929,4119040,4063170,4056858],[3952444,3951024,4087074,4133855,4076132,4069577]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>REGION<\/th>\n      <th>DIVISION<\/th>\n      <th>STATE<\/th>\n      <th>NAME<\/th>\n      <th>SEX<\/th>\n      <th>AGE<\/th>\n      <th>ESTIMATESBASE2000<\/th>\n      <th>POPESTIMATE2000<\/th>\n      <th>POPESTIMATE2001<\/th>\n      <th>POPESTIMATE2002<\/th>\n      <th>POPESTIMATE2003<\/th>\n      <th>POPESTIMATE2004<\/th>\n      <th>POPESTIMATE2005<\/th>\n      <th>POPESTIMATE2006<\/th>\n      <th>POPESTIMATE2007<\/th>\n      <th>POPESTIMATE2008<\/th>\n      <th>POPESTIMATE2009<\/th>\n      <th>CENSUS2010POP<\/th>\n      <th>POPESTIMATE2010<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+This one contains 13572 observations for 19 variables, which are</p>
+<ul>
+<li>
+<b>REGION</b>,<b>DIVISION</b>, <b>STATE</b>, <b>NAME</b> which identifies the region, division, state code and name of the state.
+</li>
+<li>
+<b>SEX</b> is the sex, it can be either 0 (total), 1 (male) or 2 (female)
+</li>
+<li>
+<b>AGE</b> is the age, it goes from 0 to 85 years old, then there’s also 999 which is the total population
+</li>
+<li>
+<b>POPBASE2000</b> and <b>POPESTIMATEyear</b> for each year, which are the estimated population in a State in a given year, for the respective sex and age cathegory
+</li>
+</ul>
+<p>The third one is about race, age and sex composition from 2010 to 2019</p>
+<p><div id="htmlwidget-3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"filter":"none","caption":"<caption>Raw data - Demographics, Race, Age &amp; Sex, 2010-2019<\/caption>","data":[["1","2","3","4","5","6"],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],["United States","United States","United States","United States","United States","United States"],[0,0,0,0,0,0],[0,1,2,3,4,5],[3805718,3820647,3790534,3832855,3926400,3965175],[3855956,3798691,3800144,3821118,3902384,3967834],[4012658,3855407,3800096,3802710,3827346,3910033],[3951461,4004674,3856114,3804336,3812607,3837187],[3975871,3936139,4002836,3860727,3816873,3823568],[4014258,3953063,3933735,4008220,3876609,3829607],[4004393,3987032,3952632,3943215,4030128,3893128],[4041738,3972124,3988119,3966022,3970880,4050582],[4147997,4002215,3973479,4004011,3998260,3993489],[4132735,4100756,4004146,3992320,4041170,4024297],[4003587,4078797,4103002,4025675,4033457,4070265],[3944153,3978070,4096929,4119040,4063170,4056858],[3952444,3951024,4087074,4133855,4076132,4069577]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>REGION<\/th>\n      <th>DIVISION<\/th>\n      <th>STATE<\/th>\n      <th>NAME<\/th>\n      <th>SEX<\/th>\n      <th>AGE<\/th>\n      <th>ESTIMATESBASE2000<\/th>\n      <th>POPESTIMATE2000<\/th>\n      <th>POPESTIMATE2001<\/th>\n      <th>POPESTIMATE2002<\/th>\n      <th>POPESTIMATE2003<\/th>\n      <th>POPESTIMATE2004<\/th>\n      <th>POPESTIMATE2005<\/th>\n      <th>POPESTIMATE2006<\/th>\n      <th>POPESTIMATE2007<\/th>\n      <th>POPESTIMATE2008<\/th>\n      <th>POPESTIMATE2009<\/th>\n      <th>CENSUS2010POP<\/th>\n      <th>POPESTIMATE2010<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[1,2,3,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+This one contains 236844 observations for 21 variables, which are</p>
+<ul>
+<li>
+<b>SUMLEV</b> is the identification of the summary levels used by the census, it is also called “area type”
+</li>
+<li>
+<b>REGION</b>,<b>DIVISION</b>, <b>STATE</b>, <b>NAME</b> which identifies the region, division, state code and name of the state.
+</li>
+<li>
+<b>RACE</b> is the race, it goes from 1 to 6, 1-6 identifying ethinicities as White, Black/African-American and so on
+</li>
+<li>
+<b>ORIGIN</b> is the origin, it can be 0 (total), 1 (Not Hispanic) or 2(Hispanic), although this sata is absent between 2000 and 2009 so we will omit it
+</li>
+<li>
+<b>SEX</b> is the sex, it can be either 0 (total), 1 (male) or 2 (female)
+</li>
+<li>
+<b>AGE</b> is the age, it goes from 0 to 84 years old, then we have 85 which comprises 85+ years old
+</li>
+<li>
+<b>POPBASE2010</b> and <b>POPESTIMATEyear</b> for each year, which are the estimated population in a State in a given year, for the respective race, sex and age cathegory
+</li>
+</ul>
+</div>
+<div id="wranglingcleaning" class="section level3">
+<h3>Wrangling/cleaning</h3>
+<p>The cleaning is done for each data-set separately. Later we proceed to join them.
+In all data-set we trasform REGION into a factor and we rename the levels such that total US replaces 0, North-East (NE) replaces 1, Mid-West (MW) replaces 2, South (S) replaces 3, and West (W) replaces 4.</p>
+<p>Also RACE and SEX will become factors with respective levels labels:(White=1, BlackAfricanAmerican=2, AmericanIndianAlaska=3, Asian=4, HawaiianPacificIslanders=5, Racegreaterthan1=6 and Total= for the dataset in years 2000-2010) and (Total=0, Male=1, Female=2).</p>
+<p>Names of variables are also changed slightly to have them in line with other data-sets and through pivot_longer and pivot_wider we adjust the structure of the table in a standardized way.</p>
+<p>Moreover, for AGE we created some sub-groups instead of having the complete range 0-85 years old.
+The age groups we create are 0-17, 18-24, 25-44, 45-64, 65-84 and 85+. We still don’t know whether age composition has an impact on criminality, but we consider important to have the subgroups 18-24 and 25-44, since in education, as we will see, these two age groups are considered.</p>
+<p>Also race groups are different in the cleaned dataset: White, BlackAfricanAmerican, Asian and Other_race. The latter comprises all the other cathegories.
+We also filter for years of interest (2004-2013).</p>
+<p>For years 2004-2010 the dataset about race is:</p>
+<div id="htmlwidget-4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["United States","United States","United States","United States","United States","United States"],[2004,2005,2006,2007,2008,2009],[234120447,235491577,236954818,238378087,239783014,241034399],[37510582,37961688,38443048,38935533,39429414,39902270],[12542740,13007663,13475846,13934641,14395296,14833733],[8631529,9055671,9506200,9982946,10486242,11001127]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>White<\/th>\n      <th>BlackAfricanAmerican<\/th>\n      <th>Asian<\/th>\n      <th>Other_race<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>For years 2004-2010 the dataset about sex and age is:</p>
+<div id="htmlwidget-5" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["United States","United States","United States","United States","United States","United States"],["US","US","US","US","US","US"],[2004,2005,2006,2007,2008,2009],[292805298,295516599,298379912,301231207,304093966,306771529],[143828012,145197078,146647265,148064854,149489951,150807454],[148977286,150319521,151732647,153166353,154604015,155964075],[73297735,73523669,73757714,74019405,74104602,74134167],[29302179,29441546,29602839,29808025,30194274,30530346],[83066831,82764185,82638980,82509693,82399959,82211153],[70935234,73137401,75216272,77068373,78617510,80272688],[31657436,31956499,32298178,32786166,33581781,34255874],[4545883,4693299,4865929,5039545,5195840,5367301]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>Region<\/th>\n      <th>year<\/th>\n      <th>population<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n      <th>Age_0_17<\/th>\n      <th>Age_18_24<\/th>\n      <th>Age_25_44<\/th>\n      <th>Age_45_64<\/th>\n      <th>Age_65_84<\/th>\n      <th>Age_over85<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7,8,9,10,11,12]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Finally, for years 2004-2010 the final dataset is:</p>
+<div id="htmlwidget-6" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["United States","United States","United States","United States","United States","United States"],["US","US","US","US","US","US"],[2004,2005,2006,2007,2008,2009],[292805298,295516599,298379912,301231207,304093966,306771529],[143828012,145197078,146647265,148064854,149489951,150807454],[148977286,150319521,151732647,153166353,154604015,155964075],[73297735,73523669,73757714,74019405,74104602,74134167],[29302179,29441546,29602839,29808025,30194274,30530346],[83066831,82764185,82638980,82509693,82399959,82211153],[70935234,73137401,75216272,77068373,78617510,80272688],[31657436,31956499,32298178,32786166,33581781,34255874],[4545883,4693299,4865929,5039545,5195840,5367301],[234120447,235491577,236954818,238378087,239783014,241034399],[37510582,37961688,38443048,38935533,39429414,39902270],[12542740,13007663,13475846,13934641,14395296,14833733],[8631529,9055671,9506200,9982946,10486242,11001127]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>Region<\/th>\n      <th>year<\/th>\n      <th>population<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n      <th>Age_0_17<\/th>\n      <th>Age_18_24<\/th>\n      <th>Age_25_44<\/th>\n      <th>Age_45_64<\/th>\n      <th>Age_65_84<\/th>\n      <th>Age_over85<\/th>\n      <th>White<\/th>\n      <th>BlackAfricanAmerican<\/th>\n      <th>Asian<\/th>\n      <th>Other_race<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7,8,9,10,11,12,13,14,15,16]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>For years 2011-2013 we created three different dataset. One for age:</p>
+<div id="htmlwidget-7" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Alabama","Alabama","Alabama","Alaska","Alaska","Alaska"],[2011,2012,2013,2011,2012,2013],[1123827,1116702,1109908,188580,188399,188349],[481645,485324,486637,76122,77738,79648],[1225177,1225301,1226950,200160,203538,206940],[1296403,1290257,1286997,199071,198358,195979],[594170,618006,638055,53239,57280,60745],[77847,79998,81534,4956,5130,5407]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>Age_0_17<\/th>\n      <th>Age_18_24<\/th>\n      <th>Age_25_44<\/th>\n      <th>Age_45_64<\/th>\n      <th>Age_65_84<\/th>\n      <th>Age_over85<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>One for race:</p>
+<div id="htmlwidget-8" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Alabama","Alabama","Alabama","Alaska","Alaska","Alaska"],[2011,2012,2013,2011,2012,2013],[3369252,3371064,3372203,489454,492838,494783],[1266978,1275628,1284340,25366,26506,27186],[57527,60785,63011,40645,42087,43737],[105312,108111,110527,166663,169012,171362]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>White<\/th>\n      <th>BlackAfricanAmerican<\/th>\n      <th>Asian<\/th>\n      <th>Other_race<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>And one for sex</p>
+<div id="htmlwidget-9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Alabama","Alabama","Alabama","Alaska","Alaska","Alaska"],[2011,2012,2013,2011,2012,2013],[4799069,4815588,4830081,722128,730443,737068],[2328254,2335710,2342422,375801,380830,385632],[2470815,2479878,2487659,346327,349613,351436]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>population<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>As you can notice, in 2011-2013 we miss the observation for United States, which instead is present between 2004-2010. Therefore, we created a dataset for it by taking the sum across states, since US’s values would be the total:</p>
+<div id="htmlwidget-10" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-10">{"x":{"filter":"none","data":[["1","2","3"],["United States","United States","United States"],[2011,2012,2013],[311556874,313830990,315993715],[153200058,154374397,155481926],[158356816,159456593,160511789],[73907524,73696664,73568702],[31078554,31371460,31488416],[82427353,82801927,83279411],[35652822,37265726,38636508],[35652822,37265726,38636508],[5697193,5864637,5992947],[243292145,244354778,245308889],[40783547,41225339,41651863],[15721072,16195092,16679752],[11760110,12055781,12353211]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>population<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n      <th>Age_0_17<\/th>\n      <th>Age_18_24<\/th>\n      <th>Age_25_44<\/th>\n      <th>Age_45_64<\/th>\n      <th>Age_65_84<\/th>\n      <th>Age_over85<\/th>\n      <th>White<\/th>\n      <th>BlackAfricanAmerican<\/th>\n      <th>Asian<\/th>\n      <th>Other_race<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11,12,13,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>We put everything together for years 2011-2013 to obtain:</p>
+<div id="htmlwidget-11" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-11">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Alabama","Alabama","Alabama","Alaska","Alaska","Alaska"],[2011,2012,2013,2011,2012,2013],[4799069,4815588,4830081,722128,730443,737068],[2328254,2335710,2342422,375801,380830,385632],[2470815,2479878,2487659,346327,349613,351436],[1123827,1116702,1109908,188580,188399,188349],[481645,485324,486637,76122,77738,79648],[1225177,1225301,1226950,200160,203538,206940],[1296403,1290257,1286997,199071,198358,195979],[594170,618006,638055,53239,57280,60745],[77847,79998,81534,4956,5130,5407],[3369252,3371064,3372203,489454,492838,494783],[1266978,1275628,1284340,25366,26506,27186],[57527,60785,63011,40645,42087,43737],[105312,108111,110527,166663,169012,171362]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>population<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n      <th>Age_0_17<\/th>\n      <th>Age_18_24<\/th>\n      <th>Age_25_44<\/th>\n      <th>Age_45_64<\/th>\n      <th>Age_65_84<\/th>\n      <th>Age_over85<\/th>\n      <th>White<\/th>\n      <th>BlackAfricanAmerican<\/th>\n      <th>Asian<\/th>\n      <th>Other_race<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11,12,13,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Finally, we join the two data-sets on demographics for the two time-ranges and obtain the final “demographics” dataset:</p>
+<div id="htmlwidget-12" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-12">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],["Alabama","Alaska","Arizona","Arkansas","California","Colorado"],[2004,2004,2004,2004,2004,2004],[4530729,659286,5652404,2749686,35574576,4575013],[2192872,341479,2816798,1346638,17703161,2300502],[2337857,317807,2835606,1403048,17871415,2274511],[1113662,186335,1484454,683166,9418497,1146369],[457934,71882,571196,275779,3661991,471390],[1231571,189864,1580090,736873,10675493,1381778],[1133736,169057,1286040,673738,8035211,1125413],[528323,38830,652427,333716,3312339,396116],[65503,3318,78197,46414,471045,53947],[3227772,460845,4915749,2231084,27181516,4110950],[1186375,23841,205171,430882,2431898,187991],[40712,31077,129542,27060,4370544,117966],[75870,143523,401942,60660,1590618,158106],["S","W","W","S","W","W"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>population<\/th>\n      <th>Male<\/th>\n      <th>Female<\/th>\n      <th>Age_0_17<\/th>\n      <th>Age_18_24<\/th>\n      <th>Age_25_44<\/th>\n      <th>Age_45_64<\/th>\n      <th>Age_65_84<\/th>\n      <th>Age_over85<\/th>\n      <th>White<\/th>\n      <th>BlackAfricanAmerican<\/th>\n      <th>Asian<\/th>\n      <th>Other_race<\/th>\n      <th>Region<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11,12,13,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Again, We can look at how many NAs are present:</p>
+<div id="htmlwidget-13" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-13">{"x":{"filter":"none","data":[["State","year","population","Male","Female","Age_0_17","Age_18_24","Age_25_44","Age_45_64","Age_65_84","Age_over85","White","BlackAfricanAmerican","Asian","Other_race","Region"],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Missing Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>No missing value is present. Although, notice that in the cleaning process we have to fill some Region’s values which otherwise would be missing. But, knowing the data-set and the State, it is straightforward.</p>
+</div>

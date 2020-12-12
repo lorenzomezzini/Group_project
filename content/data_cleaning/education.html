@@ -1,0 +1,61 @@
+---
+title: "Education"
+draft: false
+weight: 30
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="/rmarkdown-libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/datatables-binding/datatables.js"></script>
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/dt-core/js/jquery.dataTables.min.js"></script>
+<link href="/rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+
+
+<div id="source-and-descriptions" class="section level3">
+<h3>Source and Descriptions</h3>
+<p>For education we decided to look up for a proxy: Bachelor’s degree incidence in the population. We found two data-sets, one for the <a href="https://ncses.nsf.gov/indicators/states/indicator/bachelors-degree-holders-per-25-44-year-olds/table">percentage of people between 25-44 years old with a Bachelor’s Degree</a>, for years 2005-2018, and one for the <a href="https://ncses.nsf.gov/indicators/states/indicator/bachelors-degrees-per-1000-18-24-year-olds/table">number of bachelor’s conferred in the age range 18-24 per 1000 individuals</a>, for years 2000-2018.</p>
+<p>The former is:</p>
+<div id="htmlwidget-1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"filter":"none","caption":"<caption>Raw data - %25-44 years old people with a Bachelor's Degree<\/caption>","data":[["1","2","3","4","5","6"],["United States","Alabama","Alaska","Arizona","Arkansas","California"],[29.3949081719226,23.507918859567,24.0075654426685,25.2170037616866,20.5428244848606,29.3116555879409],[29.6347356254779,22.6221806872773,26.3782034276012,26.4117248710059,20.6962103212826,29.6783983117835],[30.1103530131426,23.5508774890314,25.5020889444998,25.8916898428772,20.2640123560888,30.1468382925064],[30.3849358833085,24.1146328192885,26.0158272395122,25.9443352309466,20.9444103070487,30.1433203350169],[31.1894961667464,24.6421035546178,24.0075802390288,27.1841370330939,21.7198563669558,31.1676872757566],[31.1174619800082,23.8473871395669,27.3514444134998,25.2793100884693,21.6738870338893,31.177029972638],[31.6659860271711,24.6962458898093,26.9928595341958,26.4482465404461,23.0397681532764,31.4773080068453],[32.3630657962792,26.2213077558429,27.3253442998295,27.5092731841334,23.7496236325315,32.3447986738802],[32.925678217395,25.002282010908,27.9506557012669,27.2870264558138,23.5038397328881,32.4167872378821],[33.6034806983016,25.6636361490751,26.9374840716858,27.5925263953336,24.0175254557645,33.584504459161],[34.1831961169884,26.5628353636724,28.8866072920895,27.3844009975356,24.5815045794607,34.4995506616977],[34.8666386425419,27.2212278023538,29.0011422769387,28.2929541902128,24.9929348127527,35.3306833654106],[35.699264691546,27.1305841505954,27.7190399609908,29.7868117013505,26.6059683073166,36.5160933820777],[36.4095647507784,27.877754599698,29.3960611666628,29.8227593346322,25.7389172219274,36.856020680616]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>2005<\/th>\n      <th>2006<\/th>\n      <th>2007<\/th>\n      <th>2008<\/th>\n      <th>2009<\/th>\n      <th>2010<\/th>\n      <th>2011<\/th>\n      <th>2012<\/th>\n      <th>2013<\/th>\n      <th>2014<\/th>\n      <th>2015<\/th>\n      <th>2016<\/th>\n      <th>2017<\/th>\n      <th>2018<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11,12,13,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>This one contains 53 observations for 15 variables, which are</p>
+<ul>
+<li>
+<b>State</b> which identifies the state, or the whole US
+</li>
+<li>
+<b>2005 … 2018</b> one column for each year observed
+</li>
+</ul>
+<div id="htmlwidget-2" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"filter":"none","caption":"<caption>Raw data - Per 1000 18-24 years old people conferring a Bachelor's Degree<\/caption>","data":[["1","2","3","4","5","6"],["United States","Alabama","Alaska","Arizona","Arkansas","California"],[45.2200341556658,48.1476289107371,23.6518120339865,40.153802631503,35.658902972144,35.8399413096119],[44.3403022537804,46.4837497739769,21.6595978890795,38.9091411109328,35.907821176962,35.3638204001051],[45.2793344082781,45.0764106626547,21.0914883514329,40.068655841662,37.0238388261702,36.869551528032],[46.557535418099,44.8560833557844,19.9698181764904,41.7515838809415,38.4956492028991,37.6499750705549],[47.6935878748235,46.7010529901689,19.5459224840711,45.9124363615992,39.1037751242843,38.8908656520456],[48.7913234319131,47.1789946962918,19.3909581334674,50.1997963266424,40.7777320278823,39.8867659771388],[50.0950204865269,47.9074913855818,21.1512861541771,55.2513066187376,41.4046925318203,40.8067590374403],[51.0537486921588,47.4755721431719,20.3272253068577,60.4182484402337,41.6925451738854,40.968950745173],[51.6829100993246,49.8436540108964,19.9186235140813,62.7821018873572,41.508418957448,41.6127770729472],[52.3790380579703,50.8404559599399,22.1982552662835,63.3867036944068,42.6560455111313,41.4517514543401],[53.5744244037991,53.5415016467253,21.4838307302379,69.7171626959169,43.8623221146942,41.7746958289657],[55.1345802361318,56.5521220536257,23.2521478678963,78.4345131571247,45.7882668213778,42.743519980768],[57.0593998885212,56.5216495694805,22.5083280813901,97.5665288016296,48.7802362518737,43.0595911174515],[58.4122766112572,61.3551232975735,23.7906921271013,98.9315346505104,49.159502293515,45.1014212364017],[59.4997191846579,61.3601258967755,25.8713938483857,90.4443106277969,53.3158918397907,50.0465407863559],[60.8595296224457,63.6906237485937,25.1326881049017,86.4442573804144,55.3373869714445,51.2772919584939],[62.3350483008842,67.2731910184249,26.2638734180613,83.5522044502154,56.5275386048612,53.0215941849566],[63.9139883809475,70.0048699803007,27.876210725254,83.4288927194845,57.3676487348986,55.9937348336535],[65.06954500439,71.7937162272621,27.3242678716058,83.2053139674947,57.7914162906571,57.8876193298704]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>2000<\/th>\n      <th>2001<\/th>\n      <th>2002<\/th>\n      <th>2003<\/th>\n      <th>2004<\/th>\n      <th>2005<\/th>\n      <th>2006<\/th>\n      <th>2007<\/th>\n      <th>2008<\/th>\n      <th>2009<\/th>\n      <th>2010<\/th>\n      <th>2011<\/th>\n      <th>2012<\/th>\n      <th>2013<\/th>\n      <th>2014<\/th>\n      <th>2015<\/th>\n      <th>2016<\/th>\n      <th>2017<\/th>\n      <th>2018<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>This one contains 53 observations for 20 variables, which are</p>
+<ul>
+<li>
+<b>State</b> which identifies the state, or the whole US
+</li>
+<li>
+<b>2000 … 2018</b> one column for each year observed
+</li>
+</ul>
+</div>
+<div id="wranglingcleaning" class="section level3">
+<h3>Wrangling/Cleaning</h3>
+<p>Both data-sets are cleaned separately and then put together. The main task in both is to
+create a new variable <b>year</b> and another, respectively <b>perc_bscholder_25_44</b> and <b>perc_bscconferred_18_24</b>, therefore resulting in longer data-sets.</p>
+<p>Notice, that the datas we had in the second data-set referred to 1000 people and was not in percentage
+terms as instead is <b>perc_bscholder_25_44</b>, therefore to obtain <b>perc_bscconferred_18_24</b> we have to divide by 1000 and multiply by 100 the data.</p>
+<p>Another thing which is worth mentioning is the fact that in the data-set describing %25-44 years old people with a Bachelor’s Degree, we miss observations for 2004. To adjust for it we, first, create these observations as NAs, then fill them with the value from 2005. In our opinion this shouldn’t alter our analysis, because the difference from year to year is relatively small.</p>
+<p>Then, we join the two cleaned data-sets in “edu”:</p>
+<div id="htmlwidget-3" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3">{"x":{"filter":"none","caption":"<caption>Cleaned data - Proxies for Education level<\/caption>","data":[["1","2","3","4","5","6"],["United States","Alabama","Alaska","Arizona","Arkansas","California"],[2004,2004,2004,2004,2004,2004],[4.76935878748235,4.67010529901689,1.95459224840711,4.59124363615992,3.91037751242843,3.88908656520456],[29.3949081719226,23.507918859567,24.0075654426685,25.2170037616866,20.5428244848606,29.3116555879409]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>State<\/th>\n      <th>year<\/th>\n      <th>perc_bscconferred_18_24<\/th>\n      <th>perc_bscholder_25_44<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>Again, we can look at how many NAs are present:
+<div id="htmlwidget-4" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4">{"x":{"filter":"none","data":[["State","year","perc_bscconferred_18_24","perc_bscholder_25_44"],[0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Missing Values<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"scrollX":"400px","columnDefs":[{"className":"dt-right","targets":1},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script></p>
+<p>From above, we can see that we have no missing values for education, alhtough remember that the ones we had in “edu_percholder_25_44” have been filled with 2005’s values.</p>
+</div>
