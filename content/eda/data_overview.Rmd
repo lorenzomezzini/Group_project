@@ -15,17 +15,16 @@ As you may have seen in the section on data, we end up having many features. Alt
 irrelevant or redundant. To see that we use a straightforward correlation command; this can be already a step towards the selection of most important variables that we may need for our analysis later.
 
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE, results='hide'}
+```{r, echo = FALSE, message = FALSE, warning=FALSE, }
 M <- project_1 %>%
   select(-c("State","Region","state_abbr", "year"))
 
 M <- cor(M, use = "complete.obs")
 
-filetag <- "corrplot_result.png"
+png("corrplot_result.png", height = 1000, width = 1000)
 
-png(filetag, height = 1000, width = 1000)
 corrplot(M, type="upper", order="hclust",
-         col=brewer.pal(n=8, name="RdYlBu"), tl.cex = 2, bg = "gray87")
+         col=brewer.pal(n=8, name="RdYlBu"), tl.cex = 2)
 dev.off()
 ```
 
