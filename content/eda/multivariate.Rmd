@@ -1,0 +1,62 @@
+---
+draft: false
+title: Multivariate Visualizations
+weight: 30
+---
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+source(here::here("scripts/setup.R"))
+source(here::here("scripts/Data_cleaning_script.R"))
+source(here::here("scripts/EDA_script.R"))
+```
+
+
+Now that we discussed variables by themselves, we can start to see the various relationships that exist between multiple variables at the same time.
+Notice that when appropriate we use a log10 scale. This is useful for some of our variables because they cover a large range of values.
+We also decide to remove District of Columbia and United States, since in most cases the first creates outliners and is not a proper state and because US are just a total observation. 
+
+Since from the corrplot in the first part of the EDA section the correlation between mental health expenditure and criminality appeared dubious we start investigating this relationship through a scatterplot. We consider mental health expenditure per capita against the various kinds of criminality: homicides, violent crime, rape and aggravated assault.
+
+```{r, warning=FALSE}
+ggplotly(mh_exp_plot,width = 900, height = 500)
+```
+
+From the scatterplot above we can see that the overall correlation is slightly negative. Which means that for an increase in public mental health per capita spending there is, on average, a decrease in criminality.
+
+Remember that from the corrplot we have identified a positive correlation between education and mental health expenditure per capita. The higher the education the higher is the spending for health. We tried to show this through a scatterplot and the outcome is exaclty what we expected by the corrplot, even if we don't rule out the District of Columbia.
+
+This second scatterplot that we propose is criminality against education. 
+
+```{r}
+ggplotly(mh_exp_plot3,width = 900, height = 500)
+```
+
+Here we can see two distinct things. First of all the correlation is negative, thus, on average, the higher the education the lower is the criminality rate. The second thing we can notice is about the log GDP. In all the criminalities, except rape, the lighter dots (higher GDP) lies above the tendency line, while the darker dots (lower GDP) lies below. Therefore, there is a positive correlation between GDP and the kind of crimes we considered, except for rape, that has a negative correlation.
+
+Now we want to see a few of the correlation we saw before, but in the time dimension.
+
+First of all the effect of mental health expenditure on criminality over time. We decided to report here the time series for only one crime, homicide, since the patterns are similar for all the four of them:
+
+```{r}
+time_series_2
+```
+
+From this time series we can see how in the US the number of total homicides decreases over time. This can possibly follows from an increase in the mental health.
+
+
+Now we check the mental health spending against the education over time.
+
+```{r}
+time_series_3
+```
+
+Here we see that the increase in education over the selected decade also correspond to an increase in the public expenditure in mental health.
+
+Finally we check the homicides against the education. Again, the pattern is similar also for other type of crimes, therefore we report only the one for homicides:
+
+```{r}
+time_series_4
+```
+
+This final time series shows that in the decade of interest the decrease of homicides also correspond to an increase in education.
+
+However to better understand all of these effect and draw stronger conclusions we should do some panel data analysis on the data-set as we will do in the next section.

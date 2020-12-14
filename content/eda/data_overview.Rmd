@@ -9,43 +9,44 @@ source(here::here("scripts/setup.R"))
 source(here::here("scripts/Data_cleaning_script.R"))
 source(here::here("scripts/EDA_script.R"))
 ```
+To present the crimes and the race in a nicer way, we decide to mutate the former in term of "per 1000 inhabitants" and the latter in percentage terms. This makes sense also because different countries have different dimensions and population size. Therefore, maintaining absolute magnitudes would probably give us a wrong perception and result. We don't change the variables' names, though.
 
-  
+
 As you may have seen in the section on data, we end up having many features. Although some of them might be
 irrelevant or redundant. To see that we use a straightforward correlation command; this can be already a step towards the selection of most important variables that we may need for our analysis later.
 
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE, results='hide'}
+```{r, fig.cap="Correlations among variables", echo = FALSE, message = FALSE, warning=FALSE, results='hide'}
 M <- project_1 %>%
   select(-c("State","Region","state_abbr", "year"))
 
 M <- cor(M, use = "complete.obs")
 
-png("corrplot_result.png", height = 1000, width = 1000)
+filetag <- "corrplot_result.png"
 
-corrplot(M, type="upper", order="hclust",
-         col=brewer.pal(n=8, name="RdYlBu"), tl.cex = 2)
+png(filetag, height = 1000, width = 1000)
+ corrplot(M, type="upper", order="hclust",
+        col=brewer.pal(n=8, name="RdYlBu"), tl.cex = 2, bg = "gray87")
 dev.off()
 ```
 
-<img src = "https://group15-finalproject.netlify.app/eda/corrplot_result.png" alt="corrplot" style="width:800px;height:800px;"
-class="center"/>
-  
-  The main findings are:
-  
-  <ul>
-  <li>All variables describing the population, such as population, Female and Male, as well as age, are perfectly (or at least highly) correlated. For this reason, we can select population and ignore the amount of population which is female or male. Also because these values are always around 50% of population in each state, it wouldn't be too informative. Notice that, White and Black African-American seem negatively correlated, as well as Age_0_17 and Age_over85. These are only two examples, but the motivation is straightforward, i.e.: if the population is very young, it can't be old at the same time. </li>
-  <li> White and crimes have a negative corellation, except for rapes, although for this the correlation seems small.</li> 
-  <li> Black/African-American is positively related with all crime, while Asian has only low correlations with them.
-</li>
-  <li>Mental Health expenditure per capita appears positively correlated with education of the population, while its correlation with GDP doesn't seem relevant. Its correlation with crimes is dubious, we will better investigate on it with some visualization tools.</li>
+<p><img src="https://group15-finalproject.netlify.app/eda/corrplot_result.png" alt="corrplot"/><p class="caption">Figure: Correlations among variables</p></p> 
+
+The main findings are:
+
+<ul>
+    <li>All variables describing the population, such as population, Female and Male, as well as age, are perfectly (or at least highly) correlated. For this reason, we can select population and ignore the amount of population which is female or male. Also because these values are always around 50% of population in each state, it wouldn't be too informative. Notice that, White and Black African-American seem negatively correlated, as well as Age_0_17 and Age_over85. These are only two examples, but the motivation is straightforward, i.e.: if the population is very young, it can't be old at the same time. </li>
+    <li> White and crimes have a negative corellation, except for rapes, although for this the correlation seems small.</li> 
+    <li> Black/African-American is positively related with all crime, while Asian has only low correlations with them.
+    </li>
+    <li>Mental Health expenditure per capita appears positively correlated with education of the population, while its correlation with GDP doesn't seem relevant. Its correlation with crimes is dubious, we will better investigate on it with some visualization tools.</li>
     <li>GDP tends to be positively correlated with crimes, with exception of rapes. We will deepen this result later.</li>
     <li>It seems that a young population (18-44) leads to higher homicides, aggravated assaults and violent crimes. Meanwhile, older population (45+) appears negatively related with crimes. </li>
     <li>As you know, we have considered two proxies for Education until now, although they are highly correlated and it doesn't make sense to use both. Therefore, we decide to use perc_bscholder_25_44.</li>
-  <li>Let's consider also correlations among crimes. As we would expect, the correlation between the different crimes is positive, indicating that there's little differentation. So, whenever criminality in a state is high, the level of all crimes is, more or less, high. Although, among them, rape seems to be the less correlated with the others.</li>
-  </ul>
-  
-  Moving forward, having observed the correlations above, we can also look into each variable. 
+    <li>Let's consider also correlations among crimes. As we would expect, the correlation between the different crimes is positive, indicating that there's little differentation. So, whenever criminality in a state is high, the level of all crimes is, more or less, high. Although, among them, rape seems to be the less correlated with the others.</li>
+</ul>
+
+Moving forward, having observed the correlations above, we can also look into each variable. 
 
 To do so we can look up easily at the outcome of the data-set's summary.
 
@@ -82,8 +83,7 @@ For mental health expenditure, education, population and GDP:
 ```{r, warning=FALSE}
 
 kable((do.call(rbind, lapply(project_1[,c(16:19,25)], summary)))[,1:6], longtable=TRUE, caption="Other variables summary statistics")%>%
-  kable_styling(bootstrap_options = c("striped", "hover"))%>%
-  scroll_box(width="100%")
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
 In this last summary table, it's worth mentioning that 
@@ -92,32 +92,3 @@ In this last summary table, it's worth mentioning that
 <li>The variablility of mental health expenditure per capita seems high.</li> 
 <li>Population and GDP are not really interesting withouth further analysis and grouping by state or region, since the size of states can be very different, impacting these two variables.</li>
 <ul>
-
-```{r}
-States <- readRDS(here::here('data/States.rds'))
-
-labels <- sprintf(
-            "<strong>%s</strong><br/>population: %g",
-            States@data$NAME, States@data[["pop"]][["2004"]]/1000000) %>% 
-            lapply(htmltools::HTML)
-
-map <- leaflet(States,,height=600, width=800) %>%
-  setView(-96, 37.8, 4) %>% # Us in the center
-  addProviderTiles(providers$Stamen.Watercolor) %>%
-  addPolygons(                             # Population poligons 2004
-      color = "#444444", 
-      weight = 1, 
-      smoothFactor = 0.5,
-      opacity = 1.0, 
-      fillOpacity = 0.5,
-      fillColor = ~colorQuantile("YlOrRd",  States@data[["pop"]][["2004"]]/1000000)( States@data[["pop"]][["2004"]]/1000000),
-      highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE),
-      label = labels,
-      labelOptions = labelOptions(
-          style = list("font-weight" = "normal", padding = "3px 8px"),
-          textsize = "15px",
-          direction = "auto"))
-        
-    
-map
-```

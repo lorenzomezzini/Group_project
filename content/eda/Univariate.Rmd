@@ -1,0 +1,141 @@
+---
+draft: false
+title: Univariate Visualizations
+weight: 25
+---
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+source(here::here("scripts/setup.R"))
+source(here::here("scripts/Data_cleaning_script.R"))
+source(here::here("scripts/EDA_script.R"))
+```
+
+
+
+To present the most important data by State we created an interactive map you can access [by clicking here](https://lorenzomezzini.shinyapps.io/interactive_map/) which shows the selected variable distribution in US's states in a given year. Just to give you a preview of what you can see through our interactive map we report here the part of it with population values in 2004:
+
+```{r, fig.cap="State's Population in 2004 in US"}
+States <- readRDS(here::here('data/States.rds'))
+
+labels <- sprintf(
+            "<strong>%s</strong><br/>population: %g",
+            States@data$NAME, States@data[["pop"]][["2004"]]/1000000)%>% 
+            lapply(htmltools::HTML)
+
+map <- leaflet(States,,height=600, width=800) %>%
+  setView(-96, 37.8, 4) %>% # Us in the center
+  addProviderTiles(providers$Stamen.Watercolor) %>%
+  addPolygons(                             # Population poligons 2004
+      color = "#444444", 
+      weight = 1, 
+      smoothFactor = 0.5,
+      opacity = 1.0, 
+      fillOpacity = 0.5,
+      fillColor = ~colorQuantile("YlOrRd",  States@data[["pop"]][["2004"]]/1000000)( States@data[["pop"]][["2004"]]/1000000),
+      highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE),
+      label = labels,
+      labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "15px",
+          direction = "auto"))
+    
+map
+```
+
+Moreover, we try to analyze graphically the main variables separately in order to potentially detect outliers or interesting path/characteristics.
+
+We start with a time series for mental health expenditure per capita, both for the whole US and the single regions. To do so we compute the median value in each region for every year and create a time series on R. Then we plot the whole thing in one graph: 
+
+### Mental Health Expenditure (per capita)
+
+```{r}
+time_series_1
+```
+
+We can see that in general, the expenditure per capita has increased from 2004 to 2013, with some ups and downs throughout the period. The downward sloping part are especially relevant in two regions, West and South between 2009 and 2010/11. We don't have enough data, but a possible explanation could be the financial crisis which had impact on government budgeting. The largest difference between 2004 and 2013 values is observed for North-East, while the smallest is for South, of which gap between these years is of $7 circa.
+In the time series we only look at the median. It could be interesting to observe the same data through a boxplot to understand variability and outliers.
+
+We start by looking at each regions and US in total.
+
+```{r}
+mh_exp_boxplot2
+```
+
+We notice that US has a low variability, but here data for US are already considered as a total, it doesn't consider each state observed. 
+Instead, for the regions we capture, as before, that North-East is the one with largest variation, and we already know from the time series that this is due to the steadily increase in mh_exp per capita over the years. 
+
+The boxplots are ordered by median and we can see how North-East is the one with greatest median and how US's median (which we can consider as the mean median across regions) is second for magnitude. Thus, it's driven significantly by North East states expenditure. 
+
+South and Mid-West are the regions in which states seem to spend less for mental health expenditure in per capita terms. 
+
+We can clearly observe some outliers. But you can notice that they are quite clustered. Probably each group of outliers represents a state's obervations in different years. These are not a problem for our analysis, therefore we just continue.
+
+The second boxplot we propose is to shed the light on each region's state.
+
+
+```{r, results='hide'}
+filetag <- "mh_exp_boxplot.png"
+
+png(filetag, height = 600, width = 500)
+ mh_exp_boxplot
+ dev.off()
+```
+
+<p> <img src = "https://group15-finalproject.netlify.app/eda/mh_exp_boxplot.png" alt="boxplot" style="width:600px;height:600px;" alt="centered image"/></p>
+
+As we expected, in regions such as South and West, where we observed outliers in the boxplot before, there are states which appear far from the others. These are District of Columbia and Alaska. The latter is indeed on the west coast, but it's somehow detached from the other states of the region. Also District of Columbia is a case on its own since it's not a proper state but a federal district. 
+
+We confirm that Mid-West is the region with less variability among its states in mental health expenditure per capita.
+
+### Demographic: Age and Race Composition of the Population
+
+Let's continue our univariate visualization part with demographics variables.
+
+We do so by exploiting barplots. Again, we group results by regions as it can give us an idea of the distribution of population among the different US's areas. Of course, we continue to look also at the total US.
+To group results by region we took median values and computed percentages of the population.
+
+We start with a barplot for race composition of the population:
+
+```{r}
+ggplotly(demo_bar, width = 900, height = 500)
+```
+
+We immediately observe that between total US and North-East the difference is minimal. Although, no large difference is present for any of the region. In all of them there is a high prelevance of white people. The percentage for them is the highest in Mid-West area, while there's a particular high percentage of Black/African-American population in the South. <br> Moreover, while the group "other race" is a minority everywhere, it is not in the West, where instead Black/African-American percentage is lower than both asian and other races.
+
+Now on age composition:
+
+```{r}
+ggplotly(demo_bar_2,width = 900, height = 500)
+```
+
+The same results on overall observations throughout US as we had on the summary table in the data overview section return here.
+What's new is the fact that we can make consideration on the "age" of each region. Although the composition of the population does not change in a relevant way. 
+
+### Demographic: Education
+
+Again, we group results by region and we took median values of the percentage of bachelor's degree holder with age 25-44.
+We can notice from the following graph that, using our proxy for education, we have a lower percentage of bachelor's holder in the South. Instead, North-East seem has 6% more educated people than the mean value of US.
+
+```{r}
+ggplotly(demo_bar_4,width = 900, height = 500)
+```
+
+We also look at a boxplot to understand the variability of education inside each region. 
+The variability is not too high, although we observe some outliers in South, again we think they are due to District of Columbia:
+
+```{r}
+mh_exp_boxplot3
+```
+
+
+### Criminality Distribution Across States
+
+Again, we group results by region we took median values and transform values in per 1000 terms. 
+So, finally we ask ourselves the distribution of crimes in US.
+
+```{r}
+ggplotly(demo_bar_3,width = 900, height = 500)
+```
+
+South and West have the highest level of criminality, with a great departure from other regions for violent crimes and aggravated assaults. 
+Violent crimes seem to be the most common crime, while homicide is the least frequent and it is the lowest in Mid-West.
+
