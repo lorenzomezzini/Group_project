@@ -9,7 +9,7 @@ source(here::here("scripts/Data_cleaning_script.R"))
 ```
 ### Source and Descriptions
 
-For education we decided to look up for a proxy: Bachelor's degree incidence in the population. We found two data-sets, one for the [percentage of people between 25-44 years old with a Bachelor's Degree](https://ncses.nsf.gov/indicators/states/indicator/bachelors-degree-holders-per-25-44-year-olds/table), for years 2005-2018, and one for the [number of bachelor's conferred in the age range 18-24 per 1000 individuals](https://ncses.nsf.gov/indicators/states/indicator/bachelors-degrees-per-1000-18-24-year-olds/table), for years 2000-2018. 
+For education we decided to look up for a proxy: Bachelor's degree incidence in the population. We found two data-sets, one for the [percentage of people between 25-44 years old with a Bachelor's Degree](https://ncses.nsf.gov/indicators/states/indicator/bachelors-degree-holders-per-25-44-year-olds/table){target="_blank"}, for years 2005-2018, and one for the [number of bachelor's conferred in the age range 18-24 per 1000 individuals](https://ncses.nsf.gov/indicators/states/indicator/bachelors-degrees-per-1000-18-24-year-olds/table){target="_blank"}, for years 2000-2018. 
 
 The former is:
 

@@ -10,7 +10,7 @@ source(here::here("scripts/EDA_script.R"))
 ```
 
 
-To present the most important data by State we created an interactive map, you can access [by clicking HERE](https://lorenzomezzini.shinyapps.io/interactive_map/), which shows the selected variable distribution in US's states in a given year. 
+To present the most important data by State we created an interactive map, you can access [by clicking HERE](https://lorenzomezzini.shinyapps.io/interactive_map/){target="_blank"}, which shows the selected variable distribution in US's states in a given year. 
 Just to give you a preview of what you can see through our interactive map we report here the part of it with population values in 2004:
 
 ```{r, fig.cap="State's Population in 2004 in US"}
@@ -80,7 +80,7 @@ png(filetag, height = 600, width = 500)
  dev.off()
 ```
 
-<center> <p> <img src = "mh_exp_boxplot.png" alt="boxplot" style="width:600px;height:600px;" alt="centered image"/></p> </center>
+<center> <p> <img src = "https://group15-finalproject.netlify.app/eda/mh_exp_boxplot.png" alt="boxplot" style="width:600px;height:600px;" alt="centered image"/></p> </center>
 
 As we expected, in regions such as South and West, where we observed outliers in the boxplot before, there are states which appear far from the others. These are District of Columbia and Alaska. The latter is indeed on the west coast, but it's somehow detached from the other states of the region. Also District of Columbia is a case on its own since it's not a proper state but a federal district. 
 

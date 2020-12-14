@@ -10,7 +10,7 @@ source(here::here("scripts/Data_cleaning_script.R"))
 
 ### Sources and Description
 
-For this part we have to download data-set for each year separately from 2004 to 2013 and you can find them at [this link](https://www.kff.org/other/state-indicator/smha-expenditures-per-capita/?activeTab=map&currentTimeframe=3&selectedDistributions=smha-expenditures-per-capita&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D). 
+For this part we have to download data-set for each year separately from 2004 to 2013 and you can find them at [this link](https://www.kff.org/other/state-indicator/smha-expenditures-per-capita/?activeTab=map&currentTimeframe=3&selectedDistributions=smha-expenditures-per-capita&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D){target="_blank"}. 
 
 Since the structure for each year's data-set is the same we report only the first one, for year 2004:
 

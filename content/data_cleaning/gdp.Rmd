@@ -10,7 +10,7 @@ source(here::here("scripts/Data_cleaning_script.R"))
 
 ### Source and Descriptions
 
-The data-set on GDP can be found in the [Bureau of Economic Analysis, of U.S. Department of Commerce, website](https://apps.bea.gov/iTable/iTable.cfm?7001=1200&7002=1&7003=200&7004=sic&7005=1&7006=xx&7007=-1&7035=-1&7036=-1&7090=70&7093=levels&isuri=1&reqid=70&step=10).
+The data-set on GDP can be found in the [Bureau of Economic Analysis, of U.S. Department of Commerce, website](https://apps.bea.gov/iTable/iTable.cfm?7001=1200&7002=1&7003=200&7004=sic&7005=1&7006=xx&7007=-1&7035=-1&7036=-1&7090=70&7093=levels&isuri=1&reqid=70&step=10){target="_blank"}.
 
 ```{r, fig.cap="Raw Data - Dataset which gives us info on GDP, our variable of interest", echo = FALSE, message = FALSE, warning=FALSE}
 DT::datatable(GDP, list(scrollX='400px',

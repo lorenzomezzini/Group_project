@@ -10,7 +10,7 @@ source(here::here("scripts/Data_cleaning_script.R"))
 
 ### Sources and Description
 
-We used 3 data-sets from the [United States Census Bureau's website](https://www.census.gov/).  
+We used 3 data-sets from the [United States Census Bureau's website](https://www.census.gov/){target="_blank"}.  
 
 The first one is about race composition from 2000 to 2010
 ```{r, fig.cap='Raw data - Demographics, Race, 2000-2010', echo = FALSE, message = FALSE, warning=FALSE}

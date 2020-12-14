@@ -10,7 +10,6 @@ source(here::here("scripts/EDA_script.R"))
 ```
 
 
-## Multivariate visualizations
 
 Now that we discussed variables by themselves, we can start to see the various relationships that exist between multiple variables at the same time.
 Notice that when appropriate we use a log10 scale. This is useful for some of our variables because they cover a large range of values.

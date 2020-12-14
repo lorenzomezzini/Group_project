@@ -20,7 +20,7 @@ Notice that we clean each data-set such that they all appear "standardized" (for
 
 ### Sources and Description
 
-We used the dataset on estimated crimes (from 1979 to 2019) available in the [FBI website](https://crime-data-explorer.fr.cloud.gov/downloads-and-docs). We have repeated observations for each state in the United States of America from 1979 to 2019. 
+We used the dataset on estimated crimes (from 1979 to 2019) available in the [FBI website](https://crime-data-explorer.fr.cloud.gov/downloads-and-docs){target="_blank"}. We have repeated observations for each state in the United States of America from 1979 to 2019. 
 
 ```{r, fig.cap = "Raw data - Estimated Crimes 1979-2019 in US", echo = FALSE, message = FALSE, warning=FALSE}
  DT::datatable(estimated_crimes_1979_2019, options = list( scrollX='400px',pageLength = 5,
