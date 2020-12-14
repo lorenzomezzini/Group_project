@@ -15,18 +15,13 @@ source(here::here("scripts/EDA_script.R"))
 source(here::here("scripts/Analysis_script.R"))
 ```
 
-## Analysis through Regressions: Methodolody, Selection and Justification
+## Analysis through Regressions: Selection and Justification
 
 To further study the impact of the different factor on criminality we try to exploit econometric regressions.
 
 We start with a standard OLS for a model, where we consider total criminality per 1000 people, as the sum of rape, homicide, violent crime and aggravated assault, all in per 1000 terms.
 The OLS model is:
-$$
-\begin{align*}
-Criminality \, per \, 1000 \, inhabitants&=\alpha+\beta_1log(GDP)+\beta_2mh\_exp\_pc+\beta_3perc\_bscholder\_25\_44+\\ & \,\,+\beta_4 White+\beta_5 BlackAfricanAmerican+\beta_6Asian + \\
-& \,\, + \beta_7Age\_0\_17 + \beta_8Age\_18\_24+ \beta_9Age\_25\_44+ \\ & \,\,+\beta_{10}Age\_45\_64+ \beta_{11}Age\_65\_84+\beta_{12}log(population)
-\end{align*}
-$$
+
 Running the regression we obtain the following coefficients' estimates:
 
 ```{r}
@@ -35,26 +30,26 @@ tab_model(ols_tot, title="Standard OLS, dependent variable: Total Criminality pe
 
 We notice that GDP, mh_exp_pc and education's proxy have coefficients which we could have expected by the EDA we have done previously. Indeed, GDP increases criminality while mental health expenditure and education seems to decrease it. 
 Although, among them only $log(GDP)$ and education are statistically significant.
-Surprisingly, all races have a negative effect on criminality; this doesn't sound a convincing result since the correlation of criminality with black-african american seemed positive in the corrplot in the EDA section. 
+Surprisingly, all races have a negative effect on criminality. This doesn't sound a convincing result since the correlation of criminality with black-african american seemed positive in the corrplot in the EDA section. 
 By looking at the table, we see that all groups of age in percentage of the population are significant. Although, being all coefficients positive, we think there could be some mi-specification leading to biased estimators.
 In general, we don't think this regression can be informative for us, since we are not considering characteristics specific to the country and the year. Indeed, using a standard OLS we ignore the fact that our data-set is a panel data.
 
 Therefore, we tried to identify our data-frame as a panel data and to compute regression with fixed effect, random effect and first difference. 
 Before proceeding we will explain briefly each of them:
 
-* <b>Fixed Effect: </b> Using a "within" method allows to control for variables which remains constant over timaqe. In our case, any change given from being a certain state in US to criminality, is the same.
-* <b>Random Effect:</b> these are the opposite of the onee above. Taking random effects into account, is like taking into account effects which are unpredictable.
+* <b>Fixed Effect: </b> using a "within" method allows to control for variables which remain constant over time. In our case, any change given from being a certain state in US to criminality, is the same.
+* <b>Random Effect:</b> these are the opposite of the one above. Taking random effects into account, is like taking into account effects which are unpredictable.
 * <b>First Difference:</b> this method is used to deal with omitted variable problem in panel data and it is consistent under the same assumption of the fixed effect method. As the fixed effect method it accounts for effects which are constant over time, indeed with T=2 the two should give the same result.
 
-We try to run all regression, but after some consideration we think the most appropriate for our case is <b>fixed effect</b> method and the reasons are:
+We try to run all regressions, but after some consideration we think the most appropriate for our case is <b>fixed effect</b> method and the reasons are:
 
-* Doing an Hausman test between the fixed effect and the random effect regression we end up selecting the first one. Indeed, the random effect method includes additional strong assumptions (such as unobserved heterogeneity and independent variables being uncorrelated) than the fixed effect. If these are true, then it would be more efficient to accept the coefficients resulting from the random effect regression. Although, if these assumptions don't hold we would have wrong results. 
-We try the Hausman test for many regression (with dependent variable: each crime separately and total crimes as well as total crimes minus rape) and for all, it turns out that we should favor the fixed effect regression.
+* Doing an Hausman test between the fixed effect and the random effect regressions we end up selecting the first one. Indeed, the random effect method includes additional strong assumptions (such as unobserved heterogeneity and independent variables being uncorrelated) than the fixed effect. If these are true, then it would be more efficient to accept the coefficients resulting from the random effect regression. Although, if these assumptions don't hold we would have wrong results. 
+We try the Hausman test for many regression (with dependent variable: each crime separately and total crimes as well as total crimes minus rape) and for all it turns out that we should favor the fixed effect regression.
 i.e.: for total criminality as dependent variable we obtain a low p-value. This means that we can reject the hypothesis of the two regressions giving same results with a 1% statistical significance. Thus, the random effect method would give us biased results.
 (Notice that when computing the regression with Random Effects you can include also control variables which are constant overtime; indeed, we include also region when trying the RE regression).
 * Both fixed effect and first difference take into account fixed effect, allowing us to deal with possible omitted variable which are constant overtime. This holds since these method deals with time invariant unobserved variables. Indeed, first difference method is another way to remove unobserved heterogeneities subtracting the lagged observation rather than group mean, as in fixed effect.
 First differencing is usually suggested when the number of observations N is small, and you have observation for a long time framework (i.e. T is large).
-Although, in our case, we only have T=10, while we have 52 different unit, if we consider the total United states too, 51 otherwise. For this reason we decide to use Fixed Effect.
+Although, in our case, we only have T=10, while we have 52 different unit, if we consider the total United States too, 51 otherwise. For this reason we decide to use Fixed Effect.
 
 An additional consideration we do is whether to use or not clustered standard errors. 
 The advantage of using them would be to account for within-cluster correlation or heteroskedasticity which the fixed-effects estimator alone does not take into account. Notice that cluster-adjusted standard error take into account standard error but leave your point estimates unchanged. 
@@ -70,9 +65,11 @@ For this reason we tried to run different regressions, with as dependent variabl
 
 In all the regressions we don't consider Unites States since would be redundant, being a total of the other states.
 
-## Answers to the research questions
+## Analysis through Regressions: Methodolody and Results
+
 We report here the results which are worth mentioning in our opinion. As said above, we select the fixed effect method. 
 The model is:
+
 $$
 \begin{align*}
 Y_{i,t} &=\alpha+\beta_1log(GDP)+\beta_2mh\_exp\_pc+\beta_3perc\_bscholder\_25\_44+\\ & \,\,+\beta_4 White+\beta_5 BlackAfricanAmerican+\beta_6Asian + \\
@@ -80,7 +77,7 @@ Y_{i,t} &=\alpha+\beta_1log(GDP)+\beta_2mh\_exp\_pc+\beta_3perc\_bscholder\_25\_
 \end{align*}
 $$
 $Y_{i,t}$ refers to the dependent variable for state $i$ at time $t$.
-The estimation is done considering $Y_{i,t}-\bar{Y_i}$, where $\bar{Y_i}$ is the mean dependent variable for the state $i$. indeed $\alpha$ will not appear in the results, as it is constant overtime.
+The estimation is done considering $Y_{i,t}-\bar{Y_i}$, where $\bar{Y_i}$ is the mean dependent variable for the state $i$. Indeed, $\alpha$ will not appear among the estimates, as it is constant overtime and cancels out.
 
 For total criminality regression's results are:
 
@@ -104,8 +101,8 @@ tab_model(fe_rape, digits=4, title="Fixed Effect, dependent variable: Rapes per 
 From the FE regression with Rape per 1000 inhabitants as dependent variable we learn that:
 
 * Rape appears, in magnitude, less impacted by GDP and population than whole criminality, but still respectively positively and negatively,
-* $R^2$ is very low, so probably the regression does not explicate of the variance in Rape in a state in a certain year,
-* Only GDP and $log(Population)$ are statistically significant, the other variables are not.
+* $R^2$ is very low, so probably the regression does not explain the variance in Rape in a state in a certain year,
+* Only GDP and $log(Population)$ are statistically significant, the other variables' estimated coefficients are not.
 
 For Homicides:
 
@@ -115,16 +112,18 @@ tab_model(fe_hom, digits=3, title="Fixed Effect, dependent variable: Homicides p
 
 From the FE regression with Homicides per 1000 inhabitants as dependent variable we learn that:
 
-* Rape appears, in magnitude, less impacted by GDP and population than whole criminality, but still respectively positively and negatively,
+* Homicides appear, in magnitude, less impacted by GDP and population than whole criminality, but still respectively positively and negatively,
 * $R^2=0.683$, so the variables in the regression explain 68% of the variance in homicides per 1000 people in a state in a certain year,
 * Black African American and Asian percentages in the population have a, respectively, statistically significant positive and negative effect on criminality per 1000 terms.
-*Having a high percentage of very young population appears to increase homicides at 5% significance, but this is difficult to explain through social mechanism in a community for us.
+* Having a high percentage of very young population appears to increase homicides at 5% significance, but this is difficult to explain through social mechanism in a community for us.
+
+## Answers to the research questions
 
 ### Is there any relationship between expenditure for mental health by the government and criminality?
 
 The answer is <b>inconclusive</b>.
 Our study and analysis reports slightly <b>positive</b> correlations with crimes if we look at the Corrplot's Figure (only exception is with Rape), but from the regression it doesn't result statistically significant.
-Although, the relationship between mental health expenditure and crimes appears <b>negative</b> from the scatterplot and the time series we have seen in some section above. 
+Moreover, the relationship between mental health expenditure and crimes appears <b>negative</b> from the scatterplot and the time series we have seen in some section above rather than <b>positive</b>.
 
 ### Is the level of education and wealth (through GDP) of a State relevant for its level of criminality?
 
@@ -143,7 +142,7 @@ For <b>Education</b> we can say that:
 
 * its relationship with criminality is <b>negative</b>, so the higher the percentage of population with age between 25 and 44 years old holding a Bachelor's Degree, the lower the number of crimes per 1000 people. This was confirmed from scatterplots, corrplot, time series plot and regressions.
 * FE's regressions report it to be significant only for homicides. In this one the magnitude of the effect is very small, though.
-* OLS's estimations interpretation is that for and increase in the percentage of population with age between 25 and 44 years old holding a Bachelor's Degree by 1 percentage points, total criminality would decrease by 0.09 per 1000 inhabitants. It doesn't seem a big number.
+* OLS's estimations interpretation is that for an 1 percentage point increase in the amount of population with age between 25 and 44 years old holding a Bachelor's Degree, total criminality would decrease by 0.09 per 1000 inhabitants. It doesn't seem a big number.
 * A consideration we can make by looking at the barplot presented in the univariate visualization section is that, North-East and Mid-West regions have the highest percentage of educated population and lower incidence of crimes with respect to South and West.
 
 ### Is the composition of the population, in terms of both age and ethnicity, relevant for criminality in the area?

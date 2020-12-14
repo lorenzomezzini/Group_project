@@ -1,0 +1,61 @@
+---
+draft: false
+title: Methodolody and Results
+weight: 30
+---
+```{r, echo = FALSE, message = FALSE,  warning=FALSE, results='hide'}
+source(here::here("scripts/setup.R"))
+source(here::here("scripts/Data_cleaning_script.R"))
+source(here::here("scripts/EDA_script.R"))
+source(here::here("scripts/Analysis_script.R"))
+```
+
+We report here the results which are worth mentioning in our opinion. As said above, we select the fixed effect method. 
+The model is:
+
+$$
+\begin{align*}
+Y_{i,t} &=\alpha+\beta_1log(GDP)+\beta_2mh\_exp\_pc+\beta_3perc\_bscholder\_25\_44+\\ & \,\,+\beta_4 White+\beta_5 BlackAfricanAmerican+\beta_6Asian + \\
+& \,\, + \beta_7Age\_0\_17 + \beta_8Age\_18\_24+ \beta_9Age\_25\_44+ \\ & \,\,+\beta_{10}Age\_45\_64+ \beta_{11}Age\_65\_84+\beta_{12}log(population)
+\end{align*}
+$$
+$Y_{i,t}$ refers to the dependent variable for state $i$ at time $t$.
+The estimation is done considering $Y_{i,t}-\bar{Y_i}$, where $\bar{Y_i}$ is the mean dependent variable for the state $i$. Indeed, $\alpha$ will not appear among the estimates, as it is constant overtime and cancels out.
+
+For total criminality regression's results are:
+
+```{r}
+tab_model(fe_tot, title="Fixed Effect, dependent variable: Total Criminality per 1000 inhabitants")
+```
+
+We can notice that the $R^2$, which is a statistical measure representing the proportion of the variance for a dependent variable that's explained by independent variables in a regression model, is lower here with respect to the standard OLS.
+With respect to the standard OLS estimations, magnitudes changes but not of sign. The only exception is mental health expenditure which, here, appears having a positive effect on criminality. Although, mh_exp_pc and education's proxy are not statistically significant anymore. 
+Additionally, among races, only the percentage of asian in the population seems statistically significant and still negative influencing criminality.
+As in the OLS estimates, $log(population)$ decreases criminality: as population increases by 1%, criminality decreases by 16 crimes per 1000 inhabitants circa.
+
+Among the various regressions we run, only the ones with rape and homicide as dependent variables have different results from the one just presented above. 
+
+For Rape:
+
+```{r}
+tab_model(fe_rape, digits=4, title="Fixed Effect, dependent variable: Rapes per 1000 inhabitants")
+```
+
+From the FE regression with Rape per 1000 inhabitants as dependent variable we learn that:
+
+* Rape appears, in magnitude, less impacted by GDP and population than whole criminality, but still respectively positively and negatively,
+* $R^2$ is very low, so probably the regression does not explain the variance in Rape in a state in a certain year,
+* Only GDP and $log(Population)$ are statistically significant, the other variables' estimated coefficients are not.
+
+For Homicides:
+
+```{r}
+tab_model(fe_hom, digits=3, title="Fixed Effect, dependent variable: Homicides per 1000 inhabitants")
+```
+
+From the FE regression with Homicides per 1000 inhabitants as dependent variable we learn that:
+
+* Homicides appear, in magnitude, less impacted by GDP and population than whole criminality, but still respectively positively and negatively,
+* $R^2=0.683$, so the variables in the regression explain 68% of the variance in homicides per 1000 people in a state in a certain year,
+* Black African American and Asian percentages in the population have a, respectively, statistically significant positive and negative effect on criminality per 1000 terms.
+* Having a high percentage of very young population appears to increase homicides at 5% significance, but this is difficult to explain through social mechanism in a community for us.

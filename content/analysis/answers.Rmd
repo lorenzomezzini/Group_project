@@ -1,0 +1,53 @@
+---
+draft: false
+title: Answers to research questions
+weight: 35
+---
+```{r, echo = FALSE, message = FALSE,  warning=FALSE, results='hide'}
+source(here::here("scripts/setup.R"))
+source(here::here("scripts/Data_cleaning_script.R"))
+source(here::here("scripts/EDA_script.R"))
+source(here::here("scripts/Analysis_script.R"))
+```
+
+
+### Is there any relationship between expenditure for mental health by the government and criminality?
+
+The answer is <b>inconclusive</b>.
+Our study and analysis reports slightly <b>positive</b> correlations with crimes if we look at the Corrplot's Figure (only exception is with Rape), but from the regression it doesn't result statistically significant.
+Moreover, the relationship between mental health expenditure and crimes appears <b>negative</b> from the scatterplot and the time series we have seen in some section above rather than <b>positive</b>.
+
+### Is the level of education and wealth (through GDP) of a State relevant for its level of criminality?
+
+For <b>GDP</b> we can say that:
+
+* Its relationship with criminality is coherent throughout all our analysis. The outcome of our study is a <b>positive</b> effect of GDP on criminality.
+* For Rape the answer is more dubious. From the regression we learn that the impact is positive but much lower than for total criminality as a whole. Instead, from the following scatterplot we would say that as GDP increases, Rape decreases
+
+```{r, warning=FALSE}
+ggplotly(mh_exp_plot4,width = 900, height = 500)
+```
+
+* Looking at the Fixed Effect (FE)'s estimation for total criminality we can interpret the coefficient as, if GDP in millions of dollars increases by 1%, the number of crimes in a state in a given year increases by 3.88 per 1000 inhabitants. This is <b>statistically significant</b>.
+
+For <b>Education</b> we can say that:
+
+* its relationship with criminality is <b>negative</b>, so the higher the percentage of population with age between 25 and 44 years old holding a Bachelor's Degree, the lower the number of crimes per 1000 people. This was confirmed from scatterplots, corrplot, time series plot and regressions.
+* FE's regressions report it to be significant only for homicides. In this one the magnitude of the effect is very small, though.
+* OLS's estimations interpretation is that for an 1 percentage point increase in the amount of population with age between 25 and 44 years old holding a Bachelor's Degree, total criminality would decrease by 0.09 per 1000 inhabitants. It doesn't seem a big number.
+* A consideration we can make by looking at the barplot presented in the univariate visualization section is that, North-East and Mid-West regions have the highest percentage of educated population and lower incidence of crimes with respect to South and West.
+
+### Is the composition of the population, in terms of both age and ethnicity, relevant for criminality in the area?
+
+* Population's <b>age</b> among different states and regions does not vary significantly, therefore, through our study we can't say much. The only thing we can extrapolate from our project regarding age-distribution comes from the corrplot. A younger population (18-44) leads to higher homicides, aggravated assaults and violent crimes. Meanwhile, older population (45+) appears negatively related with crimes. But, regressions' output are inconclusive since estimates are all positive and with great magnitudes.
+
+* Population's <b>race</b> composition could play a role. Indeed, we see that South region in US has the highest percentage of Black-African American and the highest incidence of crimes, supporting the positive correlation found on the corrplot between all kinds of crimes and Black-African American. White population is positively correlated with rape. Although from the regressions we observe that the coefficients for all races are negative when looking at total criminality. For homicides, the significant estimates for race are for black african american (1 percentage point increase in black-african american population leads to 1 homicide more in 1000 inhabitants) and asian (1 percentage point increase in asiatic population leads to 0.8 homicide less in 1000 inhabitants). 
+
+### Is mental health expenditure affected by how much the population is educated or by GDP of the country?
+
+By looking at correlations and the time series reported in previous section, we would answer <b>yes</b>. It exists a <b>positive</b> relationship between the two variables, thus, the more educated the population, the higher the expenditure on mental health in the state.
+We can represent this findings also in the following scatterplot with the linear regression.
+
+```{r}
+ggplotly(mh_exp_plot5,width = 900, height = 500)
+```

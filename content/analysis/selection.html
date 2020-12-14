@@ -1,0 +1,279 @@
+---
+draft: false
+title: Selection and Justification
+weight: 25
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p>To further study the impact of the different factor on criminality we try to exploit econometric regressions.</p>
+<p>We start with a standard OLS for a model, where we consider total criminality per 1000 people, as the sum of rape, homicide, violent crime and aggravated assault, all in per 1000 terms.
+The OLS model is:</p>
+<p><span class="math display">\[
+\begin{align*}
+Criminality \, per \, 1000 \, inhabitants&amp;=\alpha+\beta_1log(GDP)+\beta_2mh\_exp\_pc+\beta_3perc\_bscholder\_25\_44+\\ &amp; \,\,+\beta_4 White+\beta_5 BlackAfricanAmerican+\beta_6Asian + \\
+&amp; \,\, + \beta_7Age\_0\_17 + \beta_8Age\_18\_24+ \beta_9Age\_25\_44+ \\ &amp; \,\,+\beta_{10}Age\_45\_64+ \beta_{11}Age\_65\_84+\beta_{12}log(population)
+\end{align*}
+\]</span></p>
+<p>Running the regression we obtain the following coefficients’ estimates:</p>
+<table style="border-collapse:collapse; border:none;">
+<caption style="font-weight: bold; text-align:left;">
+Standard OLS, dependent variable: Total Criminality per 1000 inhabitants
+</caption>
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+total_criminality
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-146.90
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-254.92 – -38.88
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.008</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Current_dollar_GDP_millions<br>[log]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+4.73
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+3.52 – 5.94
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+mh_exp_pc [log]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.30
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.73 – 0.12
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.162
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+perc_bscholder_25_44
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.09
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.15 – -0.03
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.002</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+White
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-30.76
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-36.96 – -24.57
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+BlackAfricanAmerican
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-19.52
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-25.57 – -13.48
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Asian
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-58.17
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-69.43 – -46.90
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Age_0_17
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+158.71
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+50.56 – 266.85
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.004</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Age_18_24
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+197.17
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+78.31 – 316.04
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Age_25_44
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+241.96
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+142.86 – 341.06
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Age_45_64
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+161.16
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+55.17 – 267.14
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>0.003</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+Age_65_84
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+255.53
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+128.73 – 382.32
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+population [log]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-4.20
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-5.41 – -2.98
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+505
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+R<sup>2</sup> / R<sup>2</sup> adjusted
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.648 / 0.639
+</td>
+</tr>
+</table>
+<p>We notice that GDP, mh_exp_pc and education’s proxy have coefficients which we could have expected by the EDA we have done previously. Indeed, GDP increases criminality while mental health expenditure and education seems to decrease it.
+Although, among them only <span class="math inline">\(log(GDP)\)</span> and education are statistically significant.
+Surprisingly, all races have a negative effect on criminality. This doesn’t sound a convincing result since the correlation of criminality with black-african american seemed positive in the corrplot in the EDA section.
+By looking at the table, we see that all groups of age in percentage of the population are significant. Although, being all coefficients positive, we think there could be some mi-specification leading to biased estimators.
+In general, we don’t think this regression can be informative for us, since we are not considering characteristics specific to the country and the year. Indeed, using a standard OLS we ignore the fact that our data-set is a panel data.</p>
+<p>Therefore, we tried to identify our data-frame as a panel data and to compute regression with fixed effect, random effect and first difference.
+Before proceeding we will explain briefly each of them:</p>
+<ul>
+<li><b>Fixed Effect: </b> using a “within” method allows to control for variables which remain constant over time. In our case, any change given from being a certain state in US to criminality, is the same.</li>
+<li><b>Random Effect:</b> these are the opposite of the one above. Taking random effects into account, is like taking into account effects which are unpredictable.</li>
+<li><b>First Difference:</b> this method is used to deal with omitted variable problem in panel data and it is consistent under the same assumption of the fixed effect method. As the fixed effect method it accounts for effects which are constant over time, indeed with T=2 the two should give the same result.</li>
+</ul>
+<p>We try to run all regressions, but after some consideration we think the most appropriate for our case is <b>fixed effect</b> method and the reasons are:</p>
+<ul>
+<li>Doing an Hausman test between the fixed effect and the random effect regressions we end up selecting the first one. Indeed, the random effect method includes additional strong assumptions (such as unobserved heterogeneity and independent variables being uncorrelated) than the fixed effect. If these are true, then it would be more efficient to accept the coefficients resulting from the random effect regression. Although, if these assumptions don’t hold we would have wrong results.
+We try the Hausman test for many regression (with dependent variable: each crime separately and total crimes as well as total crimes minus rape) and for all it turns out that we should favor the fixed effect regression.
+i.e.: for total criminality as dependent variable we obtain a low p-value. This means that we can reject the hypothesis of the two regressions giving same results with a 1% statistical significance. Thus, the random effect method would give us biased results.
+(Notice that when computing the regression with Random Effects you can include also control variables which are constant overtime; indeed, we include also region when trying the RE regression).</li>
+<li>Both fixed effect and first difference take into account fixed effect, allowing us to deal with possible omitted variable which are constant overtime. This holds since these method deals with time invariant unobserved variables. Indeed, first difference method is another way to remove unobserved heterogeneities subtracting the lagged observation rather than group mean, as in fixed effect.
+First differencing is usually suggested when the number of observations N is small, and you have observation for a long time framework (i.e. T is large).
+Although, in our case, we only have T=10, while we have 52 different unit, if we consider the total United States too, 51 otherwise. For this reason we decide to use Fixed Effect.</li>
+</ul>
+<p>An additional consideration we do is whether to use or not clustered standard errors.
+The advantage of using them would be to account for within-cluster correlation or heteroskedasticity which the fixed-effects estimator alone does not take into account. Notice that cluster-adjusted standard error take into account standard error but leave your point estimates unchanged.
+The results are not changing in a relevant way considering clustered-adjusted standard errors or not, though.</p>
+<p>We would like to point out also another thought we had while running regressions.
+In the EDA part we have seen how Rape seems to be the only kind of crime, among the one we are considering, to behave and to be influenced differently by GDP and slightly also by the other variables.
+For this reason we tried to run different regressions, with as dependent variable (in per 1000 term):</p>
+<ul>
+<li>a group of all crimes but rape</li>
+<li>all crimes</li>
+<li>each single crime on its own</li>
+</ul>
+<p>In all the regressions we don’t consider Unites States since would be redundant, being a total of the other states.</p>

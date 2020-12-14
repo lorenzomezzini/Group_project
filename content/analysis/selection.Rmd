@@ -1,0 +1,67 @@
+---
+draft: false
+title: Selection and Justification
+weight: 25
+---
+```{r, echo = FALSE, message = FALSE,  warning=FALSE, results='hide'}
+source(here::here("scripts/setup.R"))
+source(here::here("scripts/Data_cleaning_script.R"))
+source(here::here("scripts/EDA_script.R"))
+source(here::here("scripts/Analysis_script.R"))
+```
+
+
+To further study the impact of the different factor on criminality we try to exploit econometric regressions.
+
+We start with a standard OLS for a model, where we consider total criminality per 1000 people, as the sum of rape, homicide, violent crime and aggravated assault, all in per 1000 terms.
+The OLS model is:
+
+$$
+\begin{align*}
+Criminality \, per \, 1000 \, inhabitants&=\alpha+\beta_1log(GDP)+\beta_2mh\_exp\_pc+\beta_3perc\_bscholder\_25\_44+\\ & \,\,+\beta_4 White+\beta_5 BlackAfricanAmerican+\beta_6Asian + \\
+& \,\, + \beta_7Age\_0\_17 + \beta_8Age\_18\_24+ \beta_9Age\_25\_44+ \\ & \,\,+\beta_{10}Age\_45\_64+ \beta_{11}Age\_65\_84+\beta_{12}log(population)
+\end{align*}
+$$
+
+Running the regression we obtain the following coefficients' estimates:
+
+```{r}
+tab_model(ols_tot, title="Standard OLS, dependent variable: Total Criminality per 1000 inhabitants")
+```
+
+We notice that GDP, mh_exp_pc and education's proxy have coefficients which we could have expected by the EDA we have done previously. Indeed, GDP increases criminality while mental health expenditure and education seems to decrease it. 
+Although, among them only $log(GDP)$ and education are statistically significant.
+Surprisingly, all races have a negative effect on criminality. This doesn't sound a convincing result since the correlation of criminality with black-african american seemed positive in the corrplot in the EDA section. 
+By looking at the table, we see that all groups of age in percentage of the population are significant. Although, being all coefficients positive, we think there could be some mi-specification leading to biased estimators.
+In general, we don't think this regression can be informative for us, since we are not considering characteristics specific to the country and the year. Indeed, using a standard OLS we ignore the fact that our data-set is a panel data.
+
+Therefore, we tried to identify our data-frame as a panel data and to compute regression with fixed effect, random effect and first difference. 
+Before proceeding we will explain briefly each of them:
+
+* <b>Fixed Effect: </b> using a "within" method allows to control for variables which remain constant over time. In our case, any change given from being a certain state in US to criminality, is the same.
+* <b>Random Effect:</b> these are the opposite of the one above. Taking random effects into account, is like taking into account effects which are unpredictable.
+* <b>First Difference:</b> this method is used to deal with omitted variable problem in panel data and it is consistent under the same assumption of the fixed effect method. As the fixed effect method it accounts for effects which are constant over time, indeed with T=2 the two should give the same result.
+
+We try to run all regressions, but after some consideration we think the most appropriate for our case is <b>fixed effect</b> method and the reasons are:
+
+* Doing an Hausman test between the fixed effect and the random effect regressions we end up selecting the first one. Indeed, the random effect method includes additional strong assumptions (such as unobserved heterogeneity and independent variables being uncorrelated) than the fixed effect. If these are true, then it would be more efficient to accept the coefficients resulting from the random effect regression. Although, if these assumptions don't hold we would have wrong results. 
+We try the Hausman test for many regression (with dependent variable: each crime separately and total crimes as well as total crimes minus rape) and for all it turns out that we should favor the fixed effect regression.
+i.e.: for total criminality as dependent variable we obtain a low p-value. This means that we can reject the hypothesis of the two regressions giving same results with a 1% statistical significance. Thus, the random effect method would give us biased results.
+(Notice that when computing the regression with Random Effects you can include also control variables which are constant overtime; indeed, we include also region when trying the RE regression).
+* Both fixed effect and first difference take into account fixed effect, allowing us to deal with possible omitted variable which are constant overtime. This holds since these method deals with time invariant unobserved variables. Indeed, first difference method is another way to remove unobserved heterogeneities subtracting the lagged observation rather than group mean, as in fixed effect.
+First differencing is usually suggested when the number of observations N is small, and you have observation for a long time framework (i.e. T is large).
+Although, in our case, we only have T=10, while we have 52 different unit, if we consider the total United States too, 51 otherwise. For this reason we decide to use Fixed Effect.
+
+An additional consideration we do is whether to use or not clustered standard errors. 
+The advantage of using them would be to account for within-cluster correlation or heteroskedasticity which the fixed-effects estimator alone does not take into account. Notice that cluster-adjusted standard error take into account standard error but leave your point estimates unchanged. 
+The results are not changing in a relevant way considering clustered-adjusted standard errors or not, though.
+
+We would like to point out also another thought we had while running regressions. 
+In the EDA part we have seen how Rape seems to be the only kind of crime, among the one we are considering, to behave and to be influenced differently by GDP and slightly also by the other variables. 
+For this reason we tried to run different regressions, with as dependent variable (in per 1000 term):
+
+* a group of all crimes but rape 
+* all crimes
+* each single crime on its own
+
+In all the regressions we don't consider Unites States since would be redundant, being a total of the other states.
