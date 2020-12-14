@@ -14,8 +14,8 @@ For this part we have to download data-set for each year separately from 2004 to
 
 Since the structure for each year's data-set is the same we report only the first one, for year 2004:
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(raw_data_2004, caption = 'Raw data on Mental Health Expenditure per capita', options = list( scrollY='300px'))
+```{r, fig.cap="Raw data on Mental Health Expenditure per capita", echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(raw_data_2004, options = list(pageLength = 5, lengthMenu = c(5, 10, 15, 20)))
 ```
 
 The data-set for each year contains 51 observations for 3 variables, which are
@@ -32,17 +32,17 @@ The data-set for each year contains 51 observations for 3 variables, which are
 
 ### Wrangling/cleaning
 
-We cleaned data-set for each year and then we joined them. To cleaned them we remove the dollar sign $ from the expenditure per capita values, as well as transform them into numeric. We also change its name of mental health expenditure per capita to the respective year of the dataset, i.e. <b>2004</b>. This is done to ease the join process, which is made by <b>State</b>, which is the renamed previous <b>Location</b>. 
+We clean data-set for each year and then we join them. To clean them we remove the dollar sign $ from the expenditure per capita values, as well as transform them into numeric. We also change its name of mental health expenditure per capita to the respective year of the dataset, i.e. <b>2004</b>. This is done to ease the join process, which is made by <b>State</b>, which is the renamed previous <b>Location</b>. Once joined, we create two variables "year" and "mh_exp_pc" from the data available.
 
 The resulting dataset on mental health is "mh_exp" and is reported below:
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(mh_exp, caption = 'Cleaned data - Mental Health Expenditure Per Capita, 2004-2013', options = list( scrollY='300px'))
+```{r, fig.cap="Cleaned data - Mental Health Expenditure Per Capita, 2004-2013", echo = FALSE, message = FALSE, warning=FALSE}
+DT::datatable(mh_exp, options = list(pageLength = 5, lengthMenu = c(5, 10, 15, 20)))
 ```
 
 We can also look at how many NAs are present:
-```{r}
-DT::datatable(as.data.frame(colSums(is.na(mh_exp))), options = list(scrollX='400px'),colnames = "Missing Values", caption='Missing values for each feature')
+```{r, fig.cap='Missing values for each feature'}
+DT::datatable(as.data.frame(colSums(is.na(mh_exp))), options = list(scrollX='400px'),colnames = "Missing Values")
 ```
 
-There are some, and if you look at data you can see that the missing value comes usually from Puerto Rico's observation.
+There are some, and if you look at data you can see that the missing value comes mostly from Puerto Rico's observation.
