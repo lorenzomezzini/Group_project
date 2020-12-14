@@ -71,7 +71,7 @@ enableMissingTranslationPlaceholders = false
         
     [[menu.main]]
         name = "Interactive Map"
-        url = ("https://lorenzomezzini.shinyapps.io/interactive_map/")
+        url = "https://lorenzomezzini.shinyapps.io/interactive_map/"
         weight = 2
 
 # Markup configure section
