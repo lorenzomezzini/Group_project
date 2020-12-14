@@ -15,11 +15,11 @@ source(here::here("scripts/setup.R"))
 
 ## Overview and Motivation
 
-When thinking at welfare and government expenditure in health, we often focus on physical health and not much in mental health. Starting this project out main idea was to study the relationship between Mental Health Services and Homicides. Later, we moved to a broader view to study which are the factor that mostly impact criminality in a developed country. 
+When thinking at welfare and government expenditure in health, we often focus on physical health and not much in mental health. Starting this project our main idea was to study the relationship between Mental Health Services and Homicides. Later, we moved to a broader view to study which are the factor that mostly impact criminality in a developed country. 
 
-After looking up for relevant data-sets on the internet, we decided to concentrate on United States of America, looking for data for each state.
+After looking up for relevant data-sets on the internet, we decided to concentrate on United States of America, looking at data for each state.
 
-The main motivation behind our project is our interest in social sciences and policies. Indeed, before starting, we decided for this topic because, possibly, our results will be interesting for a policy maker in taking decisions on education and mental health services expenditure and provision, as well as other factors.
+The main motivation behind our project is our interest in social sciences and policies. Indeed, before starting, we decided for this topic because, possibly, our results could be interesting for a policy maker in taking decisions on education and mental health services expenditure and provision, as well as other factors.
 
 ## Related Work
 
@@ -44,12 +44,12 @@ Finally, we analyze the results of panel data regressions and previous findings 
 
 ## Research questions
 
-The research questions we will try to answering throughout our project are:
+The research questions we will try answering throughout our project are:
 
 <ul>
-  <li>Is there any relationship between expenditure      for mental health by the government and    criminality?</li>
+  <li>Is there any relationship between expenditure for mental health by the government and criminality?</li>
   <li>Is the level of education and wealth (through GDP) of a State relevant for its level of criminality?</li>
-  <li> Is the composition of the population, in terms of both age and ethnicity, relevant for criminality in the area? </li>
+  <li>Is the composition of the population, in terms of both age and ethnicity, relevant for criminality in the area? </li>
   <li>Is mental health expenditure affected by how much the population is educated or by GDP of the country? </li>
 </ul>
 Given the questions posed above, the answers we will search for in our project could lead a reader to question himself on how to exploit these presences of correlation to reach a lower level of criminality. Though, the latter consideration makes sense only if we are able to find significant relationship between the different variables. 

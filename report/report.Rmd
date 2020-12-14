@@ -7,6 +7,23 @@ output:
     theme: tactile
     highlight: github
 ---
+# Introduction
+ 
+```{r child ='intro.Rmd'}
+```
 
-```{r child = c('intro.Rmd', 'data.Rmd', 'eda.Rmd', 'analysis.Rmd', 'concl.Rmd')}
+# Data
+```{r child = 'data.Rmd'}
+```
+
+# EDA
+```{r child = 'eda.Rmd'}
+```
+
+# Analysis
+```{r child = 'analysis.Rmd'}
+```
+
+# Conclusions
+```{r child = 'concl.Rmd'}
 ```

@@ -1,6 +1,6 @@
 #-----------------------------------------------------#
 # Eleonora Gasparri and Lorenzo Mezzini
-# 01/12/2020
+# 15/12/2020
 #-----------------------------------------------------#
 
 
@@ -11,7 +11,7 @@ packages <- c(
   "ggrepel", "gghighlight", "patchwork", "maps", "scales", # for plotting
   "knitr", "kableExtra", "bookdown", "rmarkdown", # for the report
   "readxl", "ggmap", "DT", "dygraphs", "leaflet", "htmltools" ,"rgdal", "shiny" ,"RColorBrewer", "plotly",
-  "gapminder", "corrplot", "plm", "stargazer", "lmtest", "prettydoc"
+  "gapminder", "corrplot", "plm", "stargazer", "lmtest", "prettydoc", "sjPlot", "sjmisc", "sjlabelled"
 )
 purrr::walk(packages, library, character.only = TRUE)
 

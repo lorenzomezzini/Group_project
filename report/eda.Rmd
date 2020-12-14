@@ -27,7 +27,7 @@ As you may have seen in the section on data, we end up having many features. Alt
 irrelevant or redundant. To see that we use a straightforward correlation command; this can be already a step towards the selection of most important variables that we may need for our analysis later.
 
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE, results='hide'}
+```{r, fig.cap="Correlations among variables", echo = FALSE, message = FALSE, warning=FALSE, results='hide'}
 M <- project_1 %>%
   select(-c("State","Region","state_abbr", "year"))
 
@@ -41,8 +41,7 @@ png(filetag, height = 1000, width = 1000)
 dev.off()
 ```
 
-<img src = "corrplot_result.png" alt="corrplot" style="width:800px;height:800px;"
-class="center"/>
+<p><img src="corrplot_result.png" alt="corrplot"/><p class="caption">Figure: Correlations among variables</p></p> 
 
 The main findings are:
 
@@ -108,8 +107,35 @@ In this last summary table, it's worth mentioning that
 
 ## Univariate visualizations
 
-To present the most important data by State we created an
-[interactive map](https://lorenzomezzini.shinyapps.io/interactive_map/) which shows the selected variable distribution in US's states in a given year. 
+To present the most important data by State we created an interactive map you can access [by clicking here](https://lorenzomezzini.shinyapps.io/interactive_map/) which shows the selected variable distribution in US's states in a given year. Just to give you a preview of what you can see through our interactive map we report here the part of it with population values in 2004:
+
+```{r, fig.cap="State's Population in 2004 in US"}
+States <- readRDS(here::here('data/States.rds'))
+
+labels <- sprintf(
+            "<strong>%s</strong><br/>population: %g",
+            States@data$NAME, States@data[["pop"]][["2004"]]/1000000)%>% 
+            lapply(htmltools::HTML)
+
+map <- leaflet(States,,height=600, width=800) %>%
+  setView(-96, 37.8, 4) %>% # Us in the center
+  addProviderTiles(providers$Stamen.Watercolor) %>%
+  addPolygons(                             # Population poligons 2004
+      color = "#444444", 
+      weight = 1, 
+      smoothFactor = 0.5,
+      opacity = 1.0, 
+      fillOpacity = 0.5,
+      fillColor = ~colorQuantile("YlOrRd",  States@data[["pop"]][["2004"]]/1000000)( States@data[["pop"]][["2004"]]/1000000),
+      highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE),
+      label = labels,
+      labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "15px",
+          direction = "auto"))
+    
+map
+```
 
 Moreover, we try to analyze graphically the main variables separately in order to potentially detect outliers or interesting path/characteristics.
 
@@ -150,7 +176,7 @@ png(filetag, height = 600, width = 500)
  dev.off()
 ```
 
-<img src = "mh_exp_boxplot.png" alt="boxplot" style="width:600px;height:600px;" alt="centered image"/>
+<p> <img src = "mh_exp_boxplot.png" alt="boxplot" style="width:600px;height:600px;" alt="centered image"/></p>
 
 As we expected, in regions such as South and West, where we observed outliers in the boxplot before, there are states which appear far from the others. These are District of Columbia and Alaska. The latter is indeed on the west coast, but it's somehow detached from the other states of the region. Also District of Columbia is a case on its own since it's not a proper state but a federal district. 
 
@@ -186,7 +212,7 @@ Again, we group results by region and we took median values of the percentage of
 We can notice from the following graph that, using our proxy for education, we have a lower percentage of bachelor's holder in the South. Instead, North-East seem has 6% more educated people than the mean value of US.
 
 ```{r}
-ggplotly(demo_bar_3,width = 900, height = 500)
+ggplotly(demo_bar_4,width = 900, height = 500)
 ```
 
 We also look at a boxplot to understand the variability of education inside each region. 
@@ -262,17 +288,6 @@ This final time series shows that in the decade of interest the decrease of homi
 
 However to better understand all of these effect and draw stronger conclusions we should do some panel data analysis on the data-set as we will do in the next section.
 
-Up to now we could only try to guess why such a correlation exist, and which are the social factor that induce such a result. 
-
-Such opinions for the correlations are the following:
-
-<ul>
-<li> Right now he have found three effects that we want to discuss for one last time.
-There is a negative correlation between mental health spending and violent crimes, we think that this is a reasonable correlation since taking care of possible dangerous people could reduce the impact on criminality, or at least reduce the relapse.</li>
-<li>There is a negative correlation between education and criminality, this also can be reasonable as a correlation since the education not only increases the hard skills, but also teaches people how to live in a civilized society, as well as it creates networks (easier to get help) and awareness on social problems. </li>
-<li>Finally there is a positive correlation between GPD and crimes, except for rape. At a first glance we thought this wasn't a good instance because a wealthier state will have less criminality than a poorer state. However after thinking a little bit about the possible social reasons behind it we thought that this might be caused by the social distance between poor and rich people. In a wealthier state the distance between wealthier and poorer might be high. This might induce more people to commit violent crimes to gain money or reduce debt. This might also explain why there is a positive effect for rape, in fact out of the four effect that we considered this is the one that is least related to possible wealth change in the individual that commits the crime. Although, these are only supposition, therefore we looked up and research finding a vast literature on how higher GDP has on average a positive effect on criminality. It results that there could be some simultaneous causality considerations to do, since GDP, education, unemployment and poverty are strictly linkes factors. 
-<br>Some references are [*Effect of GDP on Violent Crime, Northrup, Klaer*](https://smartech.gatech.edu/bitstream/handle/1853/51649/Klaer&NorthrupEconometricsReport.pdf), [*The Relationship between Crime and Economic Growth in Malaysia: Re-Examine Using Bound Test Approach, 2016, Mulok, Kogid, Lily, Asid *](https://www.researchgate.net/publication/309737921_The_Relationship_between_Crime_and_Economic_Growth_in_Malaysia_Re-Examine_Using_Bound_Test_Approach) </li>
-</ul>
 
 
 

@@ -290,7 +290,7 @@ mh_exp_plot2 <- ggplot(na.omit(project%>%filter(State %nin% c("United States", "
   geom_point() +
   geom_smooth(method="lm", se=TRUE, 
               fullrange=FALSE, color="#B10026", fill="#FEB24C")+
-  labs(y="mh_exp per capita", x="education", title= "Mental health vs Education")+
+  labs(y="log - mh_exp per capita", x="education", title= "Mental health vs Education")+
   scale_color_brewer(palette="YlOrRd")  + 
   theme_gray() 
 
@@ -300,7 +300,7 @@ mh_exp_plot2_dc <- ggplot(na.omit(project%>%filter(State %nin% c("United States"
   geom_point() +
   geom_smooth(method="lm", se=TRUE, 
               fullrange=FALSE, color="#B10026", fill="#FEB24C")+
-  labs(y="mh_exp per capita", x="education", title= "Mental health vs Education - With District of columbia")+
+  labs(y="log - mh_exp per capita", x="education", title= "Mental health vs Education - With District of columbia")+
   scale_color_brewer(palette="YlOrRd") +
   theme_gray()
 
@@ -335,6 +335,19 @@ mh_exp_plot4 <- ggplot(na.omit(mh_exp_p),aes(x=log10(Current_dollar_GDP_millions
 
 # ----------------------------------------------------------------------------------- #
 # ----------------------------------------------------------------------------------- #
+
+#Mental health exp. and Education
+mh_exp_plot5 <- ggplot(na.omit(mh_exp_p),aes(x=perc_bscholder_25_44, y=log10(mh_exp_pc), color="#B10026")) + 
+  geom_point() +
+  geom_smooth(method="lm", se=TRUE, 
+              fullrange=FALSE, color="#FFFFCC", fill="#FEB24C")+
+  labs(x="Percentage of Bachelor's degree holder (25-44 yrs old)", y="log - mh_exp per capita", title= "Mental Health Expenditure per Capita vs Education")+
+  theme_gray() + theme(legend.position = "none")
+
+
+# ----------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------- #
+
 # BARPLOTS
 
 
@@ -414,6 +427,7 @@ demo_bar_3 <- ggplot(na.omit(demodata_bar_crimes), aes(x=Region, y=criminality_p
   scale_fill_brewer(palette="YlOrRd") +
   theme_gray()
 ggplotly(demo_bar_3)
+
 
 # ----------------------------------------------------------------------------------- #
 # ----------------------------------------------------------------------------------- #

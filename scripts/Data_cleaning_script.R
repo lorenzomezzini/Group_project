@@ -89,12 +89,8 @@ estimated_crimes <- estimated_crimes_1979_2019 %>%
   transmute(State=state_name, state_abbr, year=as.numeric(year), 
             population, homicide, violent_crime,
             rape_legacy, aggravated_assault)%>%
-  
-  mutate(across(State, ~replace_na(.x, "United States")), 
-         across(state_abbr, ~replace_na(.x, "US"))) %>% 
-  
+  mutate(State=ifelse(is.na(State),"United States",State),state_abbr=ifelse(is.na(state_abbr),"US",state_abbr))%>% 
   #Fill NA values with "United States" and its abbrevation "US"
-  
   filter(year %in% c(2004:2013)) 
 
 #filter years of interest in line with availability for other dataset

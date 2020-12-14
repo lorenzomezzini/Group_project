@@ -3,8 +3,8 @@
 
 We used the dataset on estimated crimes (from 1979 to 2019) available in the [FBI website](https://crime-data-explorer.fr.cloud.gov/downloads-and-docs). We have repeated observations for each state in the United States of America from 1979 to 2019. 
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE}
- DT::datatable(estimated_crimes_1979_2019, options = list( scrollX='400px', scrollY='300px'), caption = 'Raw data - Estimated Crimes 1979-2019 in US' )
+```{r, fig.cap = "Raw data - Estimated Crimes 1979-2019 in US", echo = FALSE, message = FALSE, warning=FALSE}
+ DT::datatable(estimated_crimes_1979_2019, options = list( scrollX='400px', scrollY='300px') )
 ```
 
 The data-set contains 2116 observations for 15 variables, which are
@@ -25,18 +25,18 @@ The data-set contains 2116 observations for 15 variables, which are
 </ul>
 
 ```{r}
-kable(as.data.frame(colSums(is.na(estimated_crimes_1979_2019))), 'simple', col.names = "Missing Values", caption='Missing values for each feature')
+kable(as.data.frame(colSums(is.na(estimated_crimes_1979_2019))), 'simple', col.names = "Missing Values", caption= "Missing values for each feature")
 ```
 
-From above we can see how many NAs we have for each feature. Looking at this we already decide to not take into account <b>rape_revised</b> and <b>caveats</b>, while we already now that <b>state_name</b> and <b>state_abbr</b> missing values refers to United States, so we will fill them appropriately.
+From above we can see how many NAs we have for each feature. Looking at this we already decide to not take into account <b>rape_revised</b> and <b>caveats</b>, while we already know that <b>state_name</b> and <b>state_abbr</b> missing values refers to United States, so we will fill them appropriately.
 
 ### Wrangling/cleaning
 
-To clean this dataset we have to transform year values into numeric. Moreover, we change the name of column <b>state_name</b> to <b>State</b> and selected only some crime which we think could be more relevant for our study and could be more impacted by mental health expenditure.
-We also replaced NAs in <b>State</b> and <b>state_abbr</b> with "United States" and "US".
+To clean this dataset we have to transform year values into numeric. Moreover, we change the name of column <b>state_name</b> to <b>State</b> and select only some crime which we think could be more relevant for our study and could be more impacted by mental health expenditure.
+We also replace NAs in <b>State</b> and <b>state_abbr</b> with "United States" and "US".
 
 The cleaned dataset is called "estimated_crimes" and is reported below:
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE}
-  DT::datatable(estimated_crimes, options = list(scrollX='400px', scrollY='300px'), caption = 'Cleaned data - Estimated Crimes 2004-2013 in US')
+```{r, fig.cap= 'Cleaned data - Estimated Crimes 2004-2013 in US', echo = FALSE, message = FALSE, warning=FALSE}
+  DT::datatable(estimated_crimes, options = list(scrollX='400px', scrollY='300px'))
 ```

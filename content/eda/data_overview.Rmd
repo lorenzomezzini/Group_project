@@ -92,3 +92,32 @@ In this last summary table, it's worth mentioning that
 <li>The variablility of mental health expenditure per capita seems high.</li> 
 <li>Population and GDP are not really interesting withouth further analysis and grouping by state or region, since the size of states can be very different, impacting these two variables.</li>
 <ul>
+
+```{r}
+States <- readRDS(here::here('data/States.rds'))
+
+labels <- sprintf(
+            "<strong>%s</strong><br/>population: %g",
+            States@data$NAME, States@data[["pop"]][["2004"]]/1000000) %>% 
+            lapply(htmltools::HTML)
+
+map <- leaflet(States,,height=600, width=800) %>%
+  setView(-96, 37.8, 4) %>% # Us in the center
+  addProviderTiles(providers$Stamen.Watercolor) %>%
+  addPolygons(                             # Population poligons 2004
+      color = "#444444", 
+      weight = 1, 
+      smoothFactor = 0.5,
+      opacity = 1.0, 
+      fillOpacity = 0.5,
+      fillColor = ~colorQuantile("YlOrRd",  States@data[["pop"]][["2004"]]/1000000)( States@data[["pop"]][["2004"]]/1000000),
+      highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = TRUE),
+      label = labels,
+      labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "15px",
+          direction = "auto"))
+        
+    
+map
+```

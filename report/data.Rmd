@@ -24,22 +24,22 @@ Notice that we clean each data-set such that they all appear "standardized" (for
 ```
 
 
-## Mental Health Expenditure
+## Mental Health Expenditure Data
 
 ```{r child = 'datacleaning/mh_expenditure.Rmd'}
 ```
 
-## US demographic
+## US demographic Data
 
 ```{r child = 'datacleaning/demographics.Rmd'}
 ```
 
-## Education
+## Education Data
 
 ```{r child = 'datacleaning/education.Rmd'}
 ```
 
-## GDP
+## GDP Data
 
 ```{r child = 'datacleaning/gdp.Rmd'}
 ```
@@ -47,10 +47,10 @@ Notice that we clean each data-set such that they all appear "standardized" (for
 ## Final Dataset
 Now that we have each data-set cleaned and wrangled in a "standardized" way we can join them by State and year.
 
-Although, simply joining them produces NAs and by looking at the data we understand that this happens because some data-set considered also <b>Divisions</b> and this makes appear among the States also New England, Mideast, Great Lakes, Plains, Southeast, Southwest, Rocky Mountain and Far West. We filter them out, as well as Puerto Rico. Indeed, the latter presents many missing values too. 
+Although, simply joining them produces NAs. By looking at the data we understand that this happens because some data-set considered also <b>Divisions</b> and this makes appear among the States also New England, Mideast, Great Lakes, Plains, Southeast, Southwest, Rocky Mountain and Far West. We filter them out, as well as Puerto Rico. Indeed, the latter presents many missing values too. 
 
-The resulting dataset is called "project":
+The resulting data-set is called "project":
 
-```{r, echo = FALSE, message = FALSE, warning=FALSE}
+```{r, fig.cap="Final Dataset", echo = FALSE, message = FALSE, warning=FALSE}
   DT::datatable(project, options = list(scrollX='400px', scrollY='300px'), caption = 'Final Dataset')
 ```
