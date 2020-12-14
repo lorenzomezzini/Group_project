@@ -10,9 +10,11 @@ source(here::here("scripts/EDA_script.R"))
 ```
 
 
+## Multivariate visualizations
+
 Now that we discussed variables by themselves, we can start to see the various relationships that exist between multiple variables at the same time.
 Notice that when appropriate we use a log10 scale. This is useful for some of our variables because they cover a large range of values.
-We also decide to remove District of Columbia and United States, since in most cases the first creates outliners and is not a proper state and because US are just a total observation. 
+We also decide to remove District of Columbia and United States, since in most cases the first creates outliers and is not a proper state and because US are just a total sum observation. 
 
 Since from the corrplot in the first part of the EDA section the correlation between mental health expenditure and criminality appeared dubious we start investigating this relationship through a scatterplot. We consider mental health expenditure per capita against the various kinds of criminality: homicides, violent crime, rape and aggravated assault.
 
@@ -60,3 +62,7 @@ time_series_4
 This final time series shows that in the decade of interest the decrease of homicides also correspond to an increase in education.
 
 However to better understand all of these effect and draw stronger conclusions we should do some panel data analysis on the data-set as we will do in the next section.
+
+
+
+

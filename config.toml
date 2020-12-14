@@ -15,7 +15,7 @@ enableMissingTranslationPlaceholders = false
 [params]
 
     # Source Code repository section
-    description = "Gasparri Eleonora and Mezzini Lorenzo."
+    description = "Group 15: Gasparri Eleonora and Mezzini Lorenzo."
     github_repository = "https://github.com/lorenzomezzini/Group_project"
 
     # Documentation repository section

@@ -13,12 +13,14 @@ weight: 20
 <p>To present the crimes and the race in a nicer way, we decide to mutate the former in term of “per 1000 inhabitants” and the latter in percentage terms. This makes sense also because different countries have different dimensions and population size. Therefore, maintaining absolute magnitudes would probably give us a wrong perception and result. We don’t change the variables’ names, though.</p>
 <p>As you may have seen in the section on data, we end up having many features. Although some of them might be
 irrelevant or redundant. To see that we use a straightforward correlation command; this can be already a step towards the selection of most important variables that we may need for our analysis later.</p>
+<center>
 <p>
-<img src="https://group15-finalproject.netlify.app/eda/corrplot_result.png" alt="corrplot"/>
+<img src="https://group15-finalproject.netlify.app/eda/corrplot_result.png" alt="corrplot" width="700" height="600"/>
 <p class="caption">
 Figure: Correlations among variables
 </p>
 </p>
+</center>
 <p>The main findings are:</p>
 <ul>
 <li>
@@ -28,7 +30,7 @@ All variables describing the population, such as population, Female and Male, as
 White and crimes have a negative corellation, except for rapes, although for this the correlation seems small.
 </li>
 <li>
-Black/African-American is positively related with all crime, while Asian has only low correlations with them.
+Black/African-American is positively related with all crimes, while Asian has only low correlations with them.
 </li>
 <li>
 Mental Health expenditure per capita appears positively correlated with education of the population, while its correlation with GDP doesn’t seem relevant. Its correlation with crimes is dubious, we will better investigate on it with some visualization tools.
@@ -471,6 +473,7 @@ aggravated_assault
 <p>Remember that crimes are expressed in per 1000 terms. <br>
 Homicides are the less common crime, while violent crimes and aggravated assault occur on average to 4 and 2.5 people out of 1000.</p>
 <p>For mental health expenditure, education, population and GDP:</p>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
 <table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:unnamed-chunk-6">Table 4: </span>Other variables summary statistics
@@ -617,12 +620,13 @@ population
 </tr>
 </tbody>
 </table>
+</div>
 <p>In this last summary table, it’s worth mentioning that</p>
 <ul>
 <li>
 The variablility of mental health expenditure per capita seems high.
 </li>
 <li>
-Population and GDP are not really interesting withouth further analysis and grouping by state or region, since the size of states can be very different, impacting these two variables.
+Population and GDP are not really interesting without further analysis and grouping by state or region, since the size of states can be very different, impacting these two variables.
 </li>
 <ul>
