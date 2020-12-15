@@ -5,7 +5,8 @@ We used 3 data-sets from the [United States Census Bureau's website](https://www
 
 The first one is about race composition from 2000 to 2010
 ```{r, fig.cap='Raw data - Demographics, Race, 2000-2010', echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(st_est00int_race, options = list( scrollX='400px', scrollY='400px'))
+DT::datatable(st_est00int_race, options = list( scrollX='400px',pageLength = 5,
+  lengthMenu = c(5, 10, 15, 20)))
 ```
 
 This one contains 364 observations for 18 variables, which are
@@ -19,7 +20,8 @@ This one contains 364 observations for 18 variables, which are
 The second one is about age and sex composition from 2000 to 2010
 
 ```{r, fig.cap='Raw data - Demographics, Age & Sex, 2000-2010', echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(st_est00int_agesex, options = list(scrollX='400px', scrollY='400px'))
+DT::datatable(st_est00int_agesex, options = list(scrollX='400px',pageLength = 5,
+  lengthMenu = c(5, 10, 15, 20)))
 ```
 This one contains 13572 observations for 19 variables, which are
 
@@ -33,7 +35,8 @@ This one contains 13572 observations for 19 variables, which are
 The third one is about race, age and sex composition from 2010 to 2019
 
 ```{r, fig.cap='Raw data - Demographics, Race, Age & Sex, 2010-2019', echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(st_est00int_agesex, options = list(scrollX='400px', scrollY='400px'))
+DT::datatable(st_est00int_agesex, options = list(scrollX='400px',pageLength = 5,
+  lengthMenu = c(5, 10, 15, 20)))
 ```
 This one contains 236844 observations for 21 variables, which are
 
@@ -70,7 +73,8 @@ We end up having two data-sets on demographics, one for the years 2004-2010 and 
 Finally, we join these obtaining the final "demographics" dataset:
 
 ```{r,  fig.cap='Cleaned data - Demographics in US', echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(demographics, list(scrollX='400px', scrollY='400px'))
+DT::datatable(demographics, list(scrollX='400px',pageLength = 5,
+  lengthMenu = c(5, 10, 15, 20)))
 ```
 
 No missing value is present. Although, notice that in the cleaning process we have to fill some Region's values which otherwise would be missing. But, knowing the data-set and the State, it is straightforward.

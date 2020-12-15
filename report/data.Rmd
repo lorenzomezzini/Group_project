@@ -52,5 +52,6 @@ Although, simply joining them produces NAs. By looking at the data we understand
 The resulting data-set is called "project":
 
 ```{r, fig.cap="Final Dataset", echo = FALSE, message = FALSE, warning=FALSE}
-  DT::datatable(project, options = list(scrollX='400px', scrollY='300px'), caption = 'Final Dataset')
+  DT::datatable(project, options = list(scrollX='400px',pageLength = 5,
+  lengthMenu = c(5, 10, 15, 20)), caption = 'Final Dataset')
 ```

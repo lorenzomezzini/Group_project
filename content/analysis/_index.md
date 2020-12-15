@@ -1,6 +1,6 @@
 ---
 draft: false
-title: Analysis trough Regression
+title: Analysis throught Regression
 weight: 20
 ---
   

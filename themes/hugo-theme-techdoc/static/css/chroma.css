@@ -51,17 +51,17 @@
 
 /* Keyword */
 .chroma .k {
-  color: #66d9ef;
+  color: #ffd900;
 }
 
 /* KeywordConstant */
 .chroma .kc {
-  color: #66d9ef;
+  color: #ffd900;
 }
 
 /* KeywordDeclaration */
 .chroma .kd {
-  color: #66d9ef;
+  color: #ffd900;
 }
 
 /* KeywordNamespace */
@@ -71,17 +71,17 @@
 
 /* KeywordPseudo */
 .chroma .kp {
-  color: #66d9ef;
+  color: #ffd900;
 }
 
 /* KeywordReserved */
 .chroma .kr {
-  color: #66d9ef;
+  color: #ffd900;
 }
 
 /* KeywordType */
 .chroma .kt {
-  color: #66d9ef;
+  color: #ffd900;
 }
 
 /* NameAttribute */
@@ -96,7 +96,7 @@
 
 /* NameConstant */
 .chroma .no {
-  color: #66d9ef;
+  color: #ffd900;
 }
 
 /* NameDecorator */

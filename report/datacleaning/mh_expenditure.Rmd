@@ -6,7 +6,8 @@ For this part we have to download data-set for each year separately from 2004 to
 Since the structure for each year's data-set is the same we report only the first one, for year 2004:
 
 ```{r, fig.cap="Raw data on Mental Health Expenditure per capita", echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(raw_data_2004, options = list( scrollY='300px'))
+DT::datatable(raw_data_2004, options = list(pageLength = 5,
+  lengthMenu = c(5, 10, 15, 20)))
 ```
 
 The data-set for each year contains 51 observations for 3 variables, which are
@@ -28,7 +29,8 @@ We clean data-set for each year and then we join them. To clean them we remove t
 The resulting dataset on mental health is "mh_exp" and is reported below:
 
 ```{r, fig.cap="Cleaned data - Mental Health Expenditure Per Capita, 2004-2013", echo = FALSE, message = FALSE, warning=FALSE}
-DT::datatable(mh_exp, options = list( scrollY='300px'))
+DT::datatable(mh_exp, options = list(pageLength = 5,
+  lengthMenu = c(5, 10, 15, 20)))
 ```
 
 We can also look at how many NAs are present:

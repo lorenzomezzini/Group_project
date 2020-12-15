@@ -2,5 +2,6 @@
 :root {
   {{- with .Site.Params.custom_font_color }}--custom-font-color: {{ . | safeCSS }};{{ end -}}
   {{- with .Site.Params.custom_background_color }}--custom-background-color: {{ . | safeCSS }};{{ end -}}
+  {{- with .Site.Params.custom_color }}--custom-link-text-color: {{ . | safeCSS }};{{ end -}}
 }
 </style>

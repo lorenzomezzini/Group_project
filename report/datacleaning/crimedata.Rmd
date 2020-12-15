@@ -4,7 +4,8 @@
 We used the dataset on estimated crimes (from 1979 to 2019) available in the [FBI website](https://crime-data-explorer.fr.cloud.gov/downloads-and-docs). We have repeated observations for each state in the United States of America from 1979 to 2019. 
 
 ```{r, fig.cap = "Raw data - Estimated Crimes 1979-2019 in US", echo = FALSE, message = FALSE, warning=FALSE}
- DT::datatable(estimated_crimes_1979_2019, options = list( scrollX='400px', scrollY='300px') )
+ DT::datatable(estimated_crimes_1979_2019, options = list( scrollX='400px',pageLength = 5,
+  lengthMenu = c(5, 10, 15, 20)) )
 ```
 
 The data-set contains 2116 observations for 15 variables, which are
@@ -38,5 +39,6 @@ We also replace NAs in <b>State</b> and <b>state_abbr</b> with "United States" a
 The cleaned dataset is called "estimated_crimes" and is reported below:
 
 ```{r, fig.cap= 'Cleaned data - Estimated Crimes 2004-2013 in US', echo = FALSE, message = FALSE, warning=FALSE}
-  DT::datatable(estimated_crimes, options = list(scrollX='400px', scrollY='300px'))
+  DT::datatable(estimated_crimes, options = list(scrollX='400px',pageLength = 5,
+  lengthMenu = c(5, 10, 15, 20)))
 ```
