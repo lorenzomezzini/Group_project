@@ -36,6 +36,8 @@ enableMissingTranslationPlaceholders = false
     custom_font_color = ""
     custom_background_color = "orange"
     custom_color = "orange"
+    hover_color = "#ffc100"
+    
     # Documentation Menu section
     # Menu style settings
     menu_style = "open-menu" # "open-menu" or "slide-menu" or "" blank is as no sidebar
