@@ -21,10 +21,13 @@ output:
 <script src="/rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
 
 
-<p>In this part we present the data we use to analyse and answer our research questions.
+<p>
+In this part we present the data we use to analyse and answer our research questions.
 We start by importing and cleaning them.
 We use a total of 17 files to form our final data-set, we present them below separately, following the themes.
-Notice that we clean each data-set such that they all appear “standardized” (for example we select years from 2004 to 2013, since only in this time-framework we have all data available). This is done to facilitate the join process among all data-set.</p>
+Notice that we clean each data-set such that they all appear “standardized” (for example we select years from 2004 to 2013, since only in this time-framework we have all data available). This is done to facilitate the join process among all data-set.
+</p>
+<p><br></p>
 <div id="sources-and-description" class="section level3">
 <h3>Sources and Description</h3>
 <p>We used the dataset on estimated crimes (from 1979 to 2019) available in the <a href="https://crime-data-explorer.fr.cloud.gov/downloads-and-docs" target="_blank">FBI website</a>. We have repeated observations for each state in the United States of America from 1979 to 2019.</p>
@@ -126,7 +129,10 @@ each refers to the respective number of registered crimes by the FBI or of cavea
 </tr>
 </tbody>
 </table>
-<p>From above we can see how many NAs we have for each feature. Looking at this we already decide to not take into account <b>rape_revised</b> and <b>caveats</b>, while we already know that <b>state_name</b> and <b>state_abbr</b> missing values refers to United States, so we will fill them appropriately.</p>
+<p>
+From above we can see how many NAs we have for each feature. Looking at this we already decide to not take into account <b>rape_revised</b> and <b>caveats</b>, while we already know that <b>state_name</b> and <b>state_abbr</b> missing values refers to United States, so we will fill them appropriately.
+</p>
+<p><br></p>
 </div>
 <div id="wranglingcleaning" class="section level3">
 <h3>Wrangling/cleaning</h3>

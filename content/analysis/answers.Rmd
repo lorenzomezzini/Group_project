@@ -22,7 +22,7 @@ Moreover, the relationship between mental health expenditure and crimes appears 
 For <b>GDP</b> we can say that:
 
 * Its relationship with criminality is coherent throughout all our analysis. The outcome of our study is a <b>positive</b> effect of GDP on criminality.
-* For Rape the answer is more dubious. From the regression we learn that the impact is positive but much lower than for total criminality as a whole. Instead, from the following scatterplot we would say that as GDP increases, Rape decreases
+* For Rape the answer is more dubious. From the regression we learn that the impact is positive but much lower than for total criminality as a whole. Instead, from the following scatterplot we would say that as GDP increases, Rape decreases.
 
 ```{r, warning=FALSE}
 ggplotly(mh_exp_plot4,width = 900, height = 500)

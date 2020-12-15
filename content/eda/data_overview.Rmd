@@ -87,8 +87,7 @@ For mental health expenditure, education, population and GDP:
 ```{r, warning=FALSE}
 
 kable((do.call(rbind, lapply(project_1[,c(16:19,25)], summary)))[,1:6], longtable=TRUE, caption="Other variables summary statistics")%>%
-  kable_styling(bootstrap_options = c("striped", "hover"))%>%
-  scroll_box(width="100%")
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
 In this last summary table, it's worth mentioning that 
