@@ -10,6 +10,9 @@ This is the website for our project's report for the 2020 fall semester's class 
 This is our video presenting the project, 
 Enjoy ;)
 
-
-(It will be displayed as soon as we have it :D)
- <center> <p><img src="https://group15-finalproject.netlify.app/istockphoto-1144514162-612x612.jpg" alt="corrplot" width="700" height="600"/><p class="caption"> </center>
+<br>
+<center>
+<iframe width="800" height="450"
+src="https://www.youtube.com/embed/KVIhgNUZG6I">
+</iframe>
+</center>
